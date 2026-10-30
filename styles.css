@@ -167,7 +167,7 @@ footer nav { display: flex; gap: 20px; }
 .doc h2 { font-size: 26px; margin: 40px 0 10px; }
 .doc p, .doc li { color: var(--text-2); }
 .doc p + p { margin-top: 12px; }
-.doc ul { padding-left: 20px; }
+.doc ul, .doc ol { padding-left: 20px; }
 .doc li + li { margin-top: 6px; }
 
 @media (prefers-reduced-motion: no-preference) {
