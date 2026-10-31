@@ -24,6 +24,7 @@
     <nav aria-label="Main">
       <ul>
         <li><a href="#features">How it works</a></li>
+        <li><a href="#rings">Try it</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#privacy">Privacy</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -166,6 +167,45 @@
               <source srcset="images/timezone-dark.webp" media="(prefers-color-scheme: dark)" />
               <img src="images/timezone-light.webp" alt="A friend’s profile showing it’s 8:30am in Seattle, and good times to talk in your time." width="390" height="844" loading="lazy" />
             </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rings">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Try it</p>
+          <h2>Faces that fade, rings that drain.</h2>
+          <p>Every friend has two rings: the outer one for meeting up, the inner one for keeping in touch. Drag the slider to move time forward and watch who drifts. Then tap someone to catch up with them.</p>
+        </div>
+        <div class="rings-demo reveal">
+          <div class="rings-controls">
+            <label for="rings-skip">Skip ahead</label>
+            <input id="rings-skip" type="range" min="0" max="60" value="0" step="1" />
+            <output id="rings-when" for="rings-skip">Today</output>
+            <button id="rings-reset" type="button">Back to today</button>
+            <p class="rings-summary" id="rings-summary" aria-live="polite"></p>
+          </div>
+          <div class="rings-people" id="rings-people"></div>
+          <div class="rings-key">
+            <div>
+              <h3>How the rings read</h3>
+              <ul>
+                <li><span data-key="ok"></span><span><strong>Draining green:</strong> plenty of time left</span></li>
+                <li><span data-key="soon"></span><span><strong>Amber:</strong> due within a week</span></li>
+                <li><span data-key="overdue"></span><span><strong>Solid red:</strong> overdue</span></li>
+                <li><span data-key="off"></span><span><strong>Dotted:</strong> no reminders, like a pen pal</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3>And the faces</h3>
+              <ul>
+                <li>Full colour until someone’s most of the way to due.</li>
+                <li>Then they slowly grey and dim, so drifting friends stand out without a word.</li>
+                <li>Log a catch-up or a message and the colour comes straight back.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -346,6 +386,107 @@
     } else items.forEach((el) => el.classList.add('in'));
     // Store buttons do nothing until the listings are live.
     document.querySelectorAll('.store[aria-disabled="true"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+
+    // Try the rings. Made-up friends; the same rules as the app (src/lib/logic in the app's code):
+    // a ring drains as the date gets closer, is solid red once overdue and dotted with no reminders, and faces fade
+    // from 80% of the way to due, to at most 70%.
+    (function () {
+      const people = document.getElementById('rings-people');
+      if (!people) return;
+      // seen/touch: days ago today. every/tEvery: the meet-up and keep-in-touch rhythms in days (0: no reminders).
+      const FRIENDS = [
+        { id: 'sam', name: 'Sam', seen: 10, every: 30, touch: 4, tEvery: 7, skin: '#E0B08C', hair: '#3B2A20', bg: '#CFE3D6', top: '#7C5E4A', style: 0 },
+        { id: 'priya', name: 'Priya', seen: 22, every: 30, touch: 5, tEvery: 14, skin: '#B67A52', hair: '#1E1612', bg: '#F3D3C2', top: '#5E7F9E', style: 1 },
+        { id: 'jo', name: 'Jo', seen: 33, every: 30, touch: 2, tEvery: 0, skin: '#EAC3A0', hair: '#2A221E', bg: '#D7DCF1', top: '#8C4A3A', style: 2 },
+        { id: 'jess', name: 'Jess', seen: 200, every: 0, touch: 3, tEvery: 10, skin: '#F1CDB0', hair: '#B5652F', bg: '#F1E1B8', top: '#5E7F9E', style: 1 },
+        { id: 'rob', name: 'Rob', seen: 5, every: 60, touch: 12, tEvery: 30, skin: '#8C5A3C', hair: '#14100E', bg: '#E4D3EE', top: '#3F5E4E', style: 0 },
+      ];
+      let skip = 0;
+      const caught = {}; // id -> the skip value when they last caught up here
+
+      const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+      const days = (n) => `${n} day${n === 1 ? '' : 's'}`;
+      function lane(daysSince, every) {
+        if (!every) return { off: true, text: 'No reminders' };
+        const left = every - daysSince;
+        const text = left > 0 ? `${days(left)} left` : left === 0 ? 'Due today' : `${days(-left)} overdue`;
+        const bucket = left < 0 ? 'overdue' : left <= 7 ? 'soon' : 'ok';
+        return { bucket, text, remaining: Math.max(0, Math.min(1, 1 - daysSince / every)), progress: daysSince / every };
+      }
+      function state(f) {
+        const since = caught[f.id] !== undefined ? skip - caught[f.id] : undefined;
+        const seen = since ?? f.seen + skip;
+        const touch = Math.min(seen, since ?? f.touch + skip); // meeting up counts as keeping in touch
+        const meet = lane(seen, f.every), chat = lane(touch, f.tEvery);
+        const worst = Math.max(meet.progress ?? 0, chat.progress ?? 0);
+        return { meet, chat, worst, fade: Math.min(0.7, Math.max(0, ((worst - 0.8) / 1.2) * 0.7)) };
+      }
+      const colour = (l) => (l.off ? css('--text-2') : css(l.bucket === 'overdue' ? '--overdue' : l.bucket === 'soon' ? '--soon' : '--ok'));
+
+      function ring(size, r, stroke, l) {
+        const c = size / 2, len = 2 * Math.PI * r;
+        if (l.off) return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${css('--text-2')}" stroke-width="${Math.max(1.5, stroke / 2)}" stroke-dasharray="1 ${stroke * 1.6}" opacity=".7"/>`;
+        if (l.bucket === 'overdue') return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${colour(l)}" stroke-width="${stroke}"/>`;
+        return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${css('--sunken')}" stroke-width="${stroke}"/>` +
+          `<circle cx="${c}" cy="${c}" r="${r}" stroke="${colour(l)}" stroke-width="${stroke}" stroke-dasharray="${len}" stroke-dashoffset="${len * (1 - l.remaining)}"/>`;
+      }
+      function rings(size, meet, chat) {
+        const stroke = Math.max(2.5, size / 16), gap = stroke * 0.7, outer = size / 2 - stroke / 2;
+        return `<svg class="rings" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" fill="none" aria-hidden="true">${ring(size, outer, stroke, meet)}${chat ? ring(size, outer - stroke - gap, stroke, chat) : ''}</svg>`;
+      }
+      // A simple drawn portrait, standing in for a contact photo.
+      function portrait(f) {
+        const hair = [
+          `<path d="M26 44c0-16 10-26 24-26s24 10 24 26c-4-8-12-12-24-12s-20 4-24 12z" fill="${f.hair}"/>`,
+          `<path d="M24 50c0-20 10-32 26-32s26 12 26 32v22h-8V46c-6-6-12-8-18-8s-12 2-18 8v26h-8z" fill="${f.hair}"/>`,
+          `<path d="M27 42c2-14 11-22 23-22s21 8 23 22c-6-4-10-10-12-14-6 8-20 12-34 14z" fill="${f.hair}"/>`,
+        ][f.style];
+        return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="${f.bg}"/><path d="M14 104c4-22 18-32 36-32s32 10 36 32z" fill="${f.top}"/><rect x="42" y="58" width="16" height="16" rx="6" fill="${f.skin}"/><ellipse cx="50" cy="46" rx="20" ry="23" fill="${f.skin}"/>${hair}<circle cx="42" cy="48" r="2.2" fill="#2A1E18"/><circle cx="58" cy="48" r="2.2" fill="#2A1E18"/><path d="M43 58q7 5 14 0" stroke="#2A1E18" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+      }
+
+      function render() {
+        const list = FRIENDS.map((f) => ({ f, s: state(f) }));
+        people.innerHTML = list.map(({ f, s }) => `
+          <button class="ring-person" type="button" data-id="${f.id}" aria-label="${f.name}. Meeting up: ${s.meet.text}. Keeping in touch: ${s.chat.text}. Tap to log a catch-up.">
+            <span class="rface"><span class="pic" style="filter:grayscale(${s.fade / 0.7});opacity:${1 - s.fade * 0.6}">${portrait(f)}</span>${rings(96, s.meet, s.chat)}</span>
+            <span class="who">${f.name}</span>
+            <span class="lanes"><span>Meet: <b style="color:${colour(s.meet)}">${s.meet.text}</b></span><span>Talk: <b style="color:${colour(s.chat)}">${s.chat.text}</b></span></span>
+          </button>`).join('');
+        const overdue = list.filter(({ s }) => s.meet.bucket === 'overdue' || s.chat.bucket === 'overdue').map(({ f }) => f.name);
+        document.getElementById('rings-summary').textContent = overdue.length
+          ? `${overdue.length === 1 ? overdue[0] + ' is' : overdue.slice(0, -1).join(', ') + ' and ' + overdue.slice(-1) + ' are'} overdue. Tap a face to catch up.`
+          : 'Everyone’s up to date.';
+      }
+      function key() {
+        const sample = { ok: { bucket: 'ok', remaining: 0.7 }, soon: { bucket: 'soon', remaining: 0.2 }, overdue: { bucket: 'overdue' }, off: { off: true } };
+        document.querySelectorAll('[data-key]').forEach((el) => (el.innerHTML = rings(26, sample[el.dataset.key])));
+      }
+
+      people.addEventListener('click', (e) => {
+        const b = e.target.closest('.ring-person');
+        if (!b) return;
+        caught[b.dataset.id] = skip;
+        render();
+        const again = people.querySelector(`[data-id="${b.dataset.id}"]`);
+        again.focus();
+        again.querySelector('.rface').classList.add('bloom');
+      });
+      const range = document.getElementById('rings-skip');
+      const when = document.getElementById('rings-when');
+      range.addEventListener('input', () => {
+        skip = Number(range.value);
+        when.textContent = skip === 0 ? 'Today' : `+${days(skip)}`;
+        render();
+      });
+      document.getElementById('rings-reset').addEventListener('click', () => {
+        skip = 0; range.value = 0; when.textContent = 'Today';
+        for (const k in caught) delete caught[k];
+        render();
+      });
+      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { render(); key(); });
+      render();
+      key();
+    })();
   </script>
 </body>
 </html>
