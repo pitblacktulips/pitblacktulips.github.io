@@ -2,497 +2,402 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>OhHey · Reminders for friends</title>
   <meta name="description" content="OhHey keeps track of how long it’s been since you saw your close friends, who’s around when you’re free, and whose birthday is next. Friendly for ADHD brains, and everything stays on your phone." />
-  <meta name="theme-color" content="#F4ECE1" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15110F" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#FFF8F4" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1C1418" media="(prefers-color-scheme: dark)" />
   <meta property="og:title" content="OhHey · Reminders for friends" />
   <meta property="og:description" content="Turn “we should catch up” into plans. Who you haven’t seen in a while, who’s around when you’re free, and every birthday. Private, on your phone." />
-  <meta property="og:image" content="images/home-light.webp" />
-  <link rel="icon" href="images/favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta property="og:image" content="images/app/home-light.webp" />
+  <link rel="icon" href="images/app/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" />
+  <style>
+/* Layout: the homepage (from prototype 5). A calm structure in warm mid-tones: a blush-white page, deep plum
+   for type and buttons, soft apricot panels, raspberry-rose for a few words, honey for fine detail. Rounder type. */
+:root {
+  --linen: #FFF8F4;      /* the page: warm white with a hint of blush */
+  --paper: #FFFFFF;      /* cards */
+  --sage: #FCE6D8;       /* soft apricot panels */
+  --sage-deep: #F3CFBA;  /* hairlines on apricot */
+  --pine: #7D3F51;       /* plum: headings, buttons, the privacy band */
+  --pine-ink: #3A2730;   /* body text */
+  --moss: #7E6770;       /* secondary text */
+  --gold: #D4913A;       /* honey: fine detail only */
+  --rose: #B04A66;       /* raspberry-rose: a few highlighted words */
+  --on-pine: #FFF3EC;
+  --on-pine-soft: #E8CDD3;
+  --line: rgba(125, 63, 81, .1);
+  --ok: #3E8A5F; --soon: #C99437; --over: #C8553F;
+  --sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --hand: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linen: #1C1418; --paper: #251B20; --sage: #33242B; --sage-deep: #45313A; --pine: #F7D9C8; --pine-ink: #F4E7EA;
+    --moss: #C4ABB4; --gold: #E8AE5E; --rose: #F19BB0; --on-pine: #2A1B21; --on-pine-soft: #6D4C59; --line: rgba(244, 231, 234, .1);
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--linen); color: var(--pine-ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1140px; margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; color: var(--pine); text-wrap: balance; font-weight: 700; letter-spacing: -0.025em; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.label { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--moss); display: inline-flex; align-items: center; gap: 10px; }
+.label::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--gold); }
+
+/* Nav */
+header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--linen) 88%, transparent); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; }
+.nav { display: flex; align-items: center; gap: 12px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.04em; color: var(--pine); text-decoration: none; }
+.nav ul { list-style: none; display: flex; gap: 30px; margin: 0 0 0 auto; padding: 0; font-size: 15px; color: var(--moss); }
+.nav ul a { text-decoration: none; }
+.nav ul a:hover { color: var(--pine); }
+@media (max-width: 780px) { .nav ul { display: none; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--pine); color: var(--on-pine); font-weight: 600; font-size: 16px; text-decoration: none; letter-spacing: -0.01em; transition: transform .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn.small { min-height: 40px; padding: 0 18px; font-size: 14.5px; }
+.nav .btn { margin-left: 18px; }
+@media (max-width: 780px) { .nav .btn { margin-left: auto; } }
+.textlink { font-weight: 600; color: var(--pine); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-block: 72px 96px; }
+@media (max-width: 920px) { .hero { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 40px 72px; } }
+.hero h1 { font-size: clamp(42px, 6.2vw, 74px); line-height: 1; letter-spacing: -0.03em; margin-top: 22px; font-weight: 700; }
+.hero h1 .soft { color: var(--rose); }
+.hero .lead { margin-top: 24px; font-size: 20px; line-height: 1.55; color: var(--moss); max-width: 33ch; }
+.hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 32px; }
+.hero .cta small { font-size: 14px; color: var(--moss); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 40px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); list-style: none; font-size: 14.5px; color: var(--moss); }
+.facts b { color: var(--pine); font-weight: 600; }
+
+/* Hero visual: a real screen, with the rings demo floating over it */
+.visual { position: relative; min-height: 560px; }
+@media (max-width: 920px) { .visual { min-height: 0; display: flex; flex-direction: column; gap: 20px; } }
+.panel { position: absolute; inset: 0 0 0 60px; background: var(--sage); border-radius: 44px; }
+@media (max-width: 920px) { .panel { inset: 40px -24px 40px -24px; border-radius: 0; } }
+.device { position: relative; width: 270px; margin: 36px 0 0 120px; border-radius: 42px; padding: 9px; background: #2A1B21; box-shadow: 0 40px 70px -40px rgba(125, 63, 81, .55); }
+.device picture { display: block; width: 100%; }
+.device img { border-radius: 34px; aspect-ratio: 390 / 760; object-fit: cover; object-position: top; width: 100%; height: auto; }
+@media (max-width: 920px) { .device { margin: 0 auto; width: 240px; } }
+.demo .note { position: absolute; bottom: -42px; left: 18px; font-family: var(--hand); font-size: 30px; color: var(--rose); transform: rotate(-3deg); white-space: nowrap; }
+@media (max-width: 920px) { .demo { margin-bottom: 40px; } }
+.demo { position: absolute; left: 0; bottom: 30px; width: min(390px, 100%); background: var(--paper); border-radius: 24px; padding: 20px 20px 16px; box-shadow: 0 30px 60px -30px rgba(125, 63, 81, .45), 0 0 0 1px var(--line); }
+@media (max-width: 920px) { .demo { position: relative; left: auto; bottom: auto; width: 100%; } }
+.demo-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.demo-head b { font-size: 15px; color: var(--pine); }
+.demo-head span { font-size: 12.5px; color: var(--moss); }
+.faces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin-top: 14px; }
+.f { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: 0; padding: 6px 0; border-radius: 14px; font: inherit; color: inherit; cursor: pointer; }
+.f:hover { background: var(--linen); }
+.f svg { width: 64px; height: 64px; }
+.f b { font-size: 13.5px; font-weight: 600; color: var(--pine); }
+.f small { font-size: 11.5px; color: var(--moss); line-height: 1.3; text-align: center; min-height: 30px; font-variant-numeric: tabular-nums; }
+.slider { display: grid; grid-template-columns: auto minmax(0, 1fr) 70px; align-items: center; gap: 12px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; }
+.slider label { font-weight: 600; color: var(--pine); }
+.slider input { accent-color: var(--pine); width: 100%; }
+.slider output { text-align: right; color: var(--moss); font-variant-numeric: tabular-nums; }
+
+/* Sections */
+section { padding-block: 112px; }
+@media (max-width: 780px) { section { padding-block: 72px; } }
+.statement { text-align: center; }
+.statement h2 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.03em; margin: 20px auto 0; max-width: 16ch; font-weight: 700; }
+.statement p { margin: 24px auto 0; max-width: 52ch; font-size: 19px; color: var(--moss); }
+.rule { width: 10px; height: 10px; border-radius: 99px; background: var(--gold); margin: 0 auto; box-shadow: -18px 0 0 var(--sage-deep), 18px 0 0 var(--sage-deep); }
+
+.how { border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+@media (max-width: 780px) { .sec-head { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+.sec-head h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.sec-head p { color: var(--moss); font-size: 17px; max-width: 44ch; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+@media (max-width: 920px) { .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
+.step { display: flex; flex-direction: column; gap: 14px; }
+.frame { background: var(--sage); border-radius: 34px; aspect-ratio: 1 / .9; overflow: hidden; display: flex; justify-content: center; padding-top: 28px; }
+.frame picture { display: block; width: 72%; max-width: 270px; }
+.frame img { width: 100%; height: auto; border-radius: 26px 26px 0 0; aspect-ratio: 390 / 560; object-fit: cover; object-position: top; box-shadow: 0 24px 40px -24px rgba(125, 63, 81, .5); }
+.frame.center { align-items: center; padding: 24px; }
+.num { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--gold); font-variant-numeric: tabular-nums; }
+.step h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; }
+.step p { color: var(--moss); font-size: 16px; }
+.ping { width: 100%; max-width: 330px; background: color-mix(in srgb, var(--paper) 94%, transparent); border-radius: 20px; padding: 14px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 3px 12px; box-shadow: 0 24px 40px -26px rgba(125, 63, 81, .55), 0 0 0 1px var(--line); }
+.ping .ic { grid-row: span 2; width: 38px; height: 38px; border-radius: 10px; background: #7D3F51; display: grid; place-items: center; }
+.ping b { font-size: 14px; color: var(--pine-ink); display: flex; justify-content: space-between; gap: 8px; }
+.ping b small { font-weight: 500; color: var(--moss); font-size: 12px; }
+.ping p { color: var(--moss); font-size: 13.5px; line-height: 1.4; }
+.ping .acts { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ping .acts span { font-size: 12px; font-weight: 600; background: var(--linen); color: var(--pine-ink); border-radius: 99px; padding: 5px 11px; white-space: nowrap; }
+
+.features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 56px; border-top: 1px solid var(--line); }
+@media (max-width: 920px) { .features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .features { grid-template-columns: minmax(0, 1fr); } }
+.feature { padding: 28px 28px 28px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.feature svg { width: 26px; height: 26px; }
+.feature h3 { font-size: 18px; letter-spacing: -0.015em; margin-top: 6px; }
+.feature p { font-size: 15.5px; color: var(--moss); }
+
+.privacy { background: var(--pine); color: var(--on-pine); }
+.privacy .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center; }
+@media (max-width: 920px) { .privacy .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+.privacy .label { color: var(--on-pine-soft); }
+.privacy h2 { color: var(--on-pine); font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -0.03em; margin-top: 18px; font-weight: 700; }
+.privacy dl { margin: 0; display: grid; gap: 0; }
+.privacy dl div { padding: 16px 0; border-top: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.privacy dl div:last-child { border-bottom: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); }
+.privacy dt { font-weight: 600; }
+.privacy dd { margin: 0; color: var(--on-pine-soft); font-size: 15.5px; }
+@media (prefers-color-scheme: dark) { .privacy dd { color: #6D4C59; } }
+
+.pricing .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; max-width: 760px; }
+@media (max-width: 640px) { .pricing .plans { grid-template-columns: minmax(0, 1fr); } }
+.plan { background: var(--paper); border: 1px solid var(--line); border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 12px; }
+.plan.pro { background: var(--sage); border-color: var(--sage-deep); }
+.plan .name { font-size: 15px; font-weight: 600; color: var(--moss); }
+.plan .price { font-size: 44px; font-weight: 800; letter-spacing: -0.04em; color: var(--pine); line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .price small { font-size: 16px; font-weight: 500; color: var(--moss); letter-spacing: 0; }
+.plan ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; }
+.plan li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; color: var(--pine-ink); }
+.plan li::before { content: "✓"; color: var(--gold); font-weight: 700; }
+.fine { margin-top: 18px; font-size: 13.5px; color: var(--moss); max-width: 70ch; }
+
+.faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+.faq-grid h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.faq-grid > div > p { margin-top: 16px; color: var(--moss); }
+details { border-bottom: 1px solid var(--line); }
+details:first-of-type { border-top: 1px solid var(--line); }
+summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; font-weight: 600; font-size: 18px; color: var(--pine); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 1.5px solid var(--moss); border-bottom: 1.5px solid var(--moss); transform: rotate(45deg) translateY(-3px); transition: transform .2s ease; }
+details[open] summary::after { transform: rotate(-135deg) translateX(-2px); }
+details p { padding: 0 0 22px; color: var(--moss); max-width: 58ch; }
+
+.closing { text-align: center; padding-block: 96px 120px; border-top: 1px solid var(--line); }
+.closing h2 { font-size: clamp(32px, 4.6vw, 54px); letter-spacing: -0.03em; line-height: 1.05; font-weight: 700; }
+.closing p { margin: 18px auto 30px; color: var(--moss); max-width: 46ch; }
+.mail { font-weight: 600; color: var(--pine); user-select: all; }
+footer { border-top: 1px solid var(--line); font-size: 14px; color: var(--moss); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
+footer nav { display: flex; gap: 22px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--pine); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } .demo circle { transition: none !important; } }
+  </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="wrap nav">
-    <a class="brand serif" href="#top"><img src="images/icon.png" alt="" width="36" height="36" />OhHey</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="#features">How it works</a></li>
-        <li><a href="#rings">Try it</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#privacy">Privacy</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+  <header class="top">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="9" fill="#7D3F51"/><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="4.4" fill="none" stroke="#E8AE5E" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="17 99" transform="rotate(-90 15 15)"/></svg>
+        OhHey
+      </a>
+      <ul><li><a href="#how">How it works</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#questions">Questions</a></li></ul>
+      <a class="btn small" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
+    </div>
   </header>
 
-  <main id="main">
-    <div class="wrap hero" id="top">
+  <main id="top">
+    <div class="wrap hero">
       <div>
-        <p class="eyebrow">Reminders for friends</p>
-        <h1>Turn “we should catch up” into <em>plans.</em></h1>
-        <p class="lead">OhHey quietly keeps track of who you haven’t seen in a while, who’s around when you’re free, and whose birthday is next. So the people you love don’t drift.</p>
-        <div class="stores">
-          <!-- Swap href and remove aria-disabled when the listings are live. -->
-          <a class="store" href="#" aria-disabled="true" data-store="apple">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.77-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.4-.92-2.42-3.66l.02-.03ZM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27Z"/></svg>
-            <span><small>Coming soon to the</small><b>App Store</b></span>
-          </a>
-          <a class="store" href="#" aria-disabled="true" data-store="google">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3a1.5 1.5 0 0 0-.6 1.24v16.92c0 .5.23.95.6 1.24l9.53-9.7L3.6 2.3Zm10.6 10.78 2.74 2.8-11.06 6.32 8.32-9.12Zm0-2.16L5.88 1.8l11.06 6.32-2.74 2.8Zm3.98-1.8 2.9 1.66c.92.53.92 1.91 0 2.44l-2.9 1.66L15.13 12l3.05-3.1Z"/></svg>
-            <span><small>Coming soon to</small><b>Google Play</b></span>
-          </a>
+        <span class="label">Reminders for friends</span>
+        <h1>Turn “we should catch up” <span class="soft">into plans.</span></h1>
+        <p class="lead">OhHey keeps count of how long it’s been with the people you love, and nudges you gently before anyone drifts.</p>
+        <div class="cta">
+          <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
+          <small>Coming to iPhone and Android</small>
         </div>
-        <ul class="trust" aria-label="Private by design">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"/></svg>Your friends stay on your phone</li>
-          <li>No account</li>
-          <li>No ads or tracking</li>
-        </ul>
-        <p class="soon">For iPhone and Android. Want to know when it’s out? <a href="#contact">Drop us a line</a>.</p>
+        <ul class="facts"><li><b>No account.</b> Open it and start</li><li><b>No ads.</b> Nothing to sell</li><li><b>Private.</b> It all stays on your phone</li></ul>
       </div>
-      <div class="hero-phones" aria-hidden="true">
-        <div class="phone">
+
+      <div class="visual">
+        <div class="panel" aria-hidden="true"></div>
+        <div class="device">
           <picture>
-            <source srcset="images/plans-dark.webp" media="(prefers-color-scheme: dark)" />
-            <img src="images/plans-light.webp" alt="" width="390" height="844" />
+            <source srcset="images/app/home-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="images/app/home-light.webp" alt="OhHey’s Home screen: who could make it this weekend, and your circle by who’s up to date and who’s drifting." width="390" height="844" />
           </picture>
         </div>
-        <div class="phone">
-          <picture>
-            <source srcset="images/home-dark.webp" media="(prefers-color-scheme: dark)" />
-            <img src="images/home-light.webp" alt="" width="390" height="844" />
-          </picture>
+        <div class="demo" aria-label="Try it: the rings round each friend">
+          <span class="note" aria-hidden="true">↑ oh hey!</span>
+          <div class="demo-head"><b>Try the rings</b><span>Tap a face to catch up</span></div>
+          <div class="faces" id="faces"></div>
+          <div class="slider">
+            <label for="skip">Skip ahead</label>
+            <input id="skip" type="range" min="0" max="42" value="0" step="1" />
+            <output id="skipOut" for="skip">Today</output>
+          </div>
         </div>
       </div>
     </div>
 
-    <section id="features">
+    <section class="statement">
       <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">How it works</p>
-          <h2>A calm nudge, not another to-do list.</h2>
-          <p>Add the people you want to see more, how often you’d like to, and how much notice they need. OhHey does the remembering.</p>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-copy">
-            <p class="eyebrow">Your circle</p>
-            <h3>See who’s drifting, at a glance.</h3>
-            <p>Open the app and you’ll see who you’ve caught up with this month, who’s due soon, and who it’s been too long with. Free right now? It’s the first thing on the screen.</p>
-            <ul>
-              <li>Weekly, monthly, every 10 days: you set the rhythm for each person</li>
-              <li>Message them in one tap, on WhatsApp, Signal, Telegram, text or a call</li>
-              <li>Everyone up to date? OhHey says so, and leaves you be</li>
-            </ul>
-          </div>
-          <div class="phone">
-            <picture>
-              <source srcset="images/home-dark.webp" media="(prefers-color-scheme: dark)" />
-              <img src="images/home-light.webp" alt="The Home screen: an “I’m free” card at the top, then your circle grouped into up to date, due this week, plan made and drifting." width="390" height="844" loading="lazy" />
-            </picture>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-copy">
-            <p class="eyebrow">I’m free</p>
-            <h3>Got a free evening? See who’s around.</h3>
-            <p>Tap “I’m free” and OhHey suggests who to message: people nearby, up for it at that notice, and due a catch-up. Planning further ahead? Pick a day and it finds the friends who need booking in.</p>
-            <ul>
-              <li>Now, tonight, this weekend, or weeks ahead</li>
-              <li>See everyone on a map</li>
-              <li>Away for a few days? Set a trip and see who’s near there</li>
-            </ul>
-          </div>
-          <div class="phone">
-            <picture>
-              <source srcset="images/free-dark.webp" media="(prefers-color-scheme: dark)" />
-              <img src="images/free-light.webp" alt="Who’s around: suggestions for who to message this weekend, with distance and why they’re a good bet." width="390" height="844" loading="lazy" />
-            </picture>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-copy">
-            <p class="eyebrow">Meet up, or keep in touch</p>
-            <h3>Two rhythms for every friend.</h3>
-            <p>Some friends you want to see every month. Others you’d be happy just to message now and then. Each friend has a meet-up rhythm and a keep-in-touch rhythm, and OhHey counts down both.</p>
-            <ul>
-              <li>Any message, call or catch-up counts as keeping in touch</li>
-              <li>A pen pal? Turn off meet-up reminders for them</li>
-              <li>Pick a custom rhythm, like every 3 weeks</li>
-            </ul>
-          </div>
-          <div class="phone">
-            <picture>
-              <source srcset="images/profile-dark.webp" media="(prefers-color-scheme: dark)" />
-              <img src="images/profile-light.webp" alt="A friend’s profile: meeting up monthly, 15 days overdue, and keeping in touch weekly, 2 days overdue." width="390" height="844" loading="lazy" />
-            </picture>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-copy">
-            <p class="eyebrow">Plans and birthdays</p>
-            <h3>Plans, countdowns, and every birthday.</h3>
-            <p>See who’s overdue and how many days are left for everyone else. The calendar shows your plans and every birthday for the year ahead.</p>
-            <ul>
-              <li>Add plans straight to your phone’s calendar</li>
-              <li>On someone’s birthday, a message is ready to send</li>
-              <li>“How did it go?” after each plan, and a look back at each month</li>
-            </ul>
-          </div>
-          <div class="phone">
-            <picture>
-              <source srcset="images/calendar-dark.webp" media="(prefers-color-scheme: dark)" />
-              <img src="images/calendar-light.webp" alt="The Plans calendar, with plans and birthdays marked on each day." width="390" height="844" loading="lazy" />
-            </picture>
-          </div>
-        </div>
-
-        <div class="feature reveal">
-          <div class="feature-copy">
-            <p class="eyebrow">Friends abroad</p>
-            <h3>Find a good time to talk.</h3>
-            <p>For friends in other time zones, OhHey shows what time it is where they live and suggests good times to call, worked out from their time zone and the usual hours you add. No tracking, just the clock.</p>
-            <ul>
-              <li>Add their usual working hours if you know them, and yours</li>
-              <li>A gentle check before you message at 3am their time</li>
-            </ul>
-          </div>
-          <div class="phone">
-            <picture>
-              <source srcset="images/timezone-dark.webp" media="(prefers-color-scheme: dark)" />
-              <img src="images/timezone-light.webp" alt="A friend’s profile showing it’s 8:30am in Seattle, and good times to talk in your time." width="390" height="844" loading="lazy" />
-            </picture>
-          </div>
-        </div>
+        <div class="rule" aria-hidden="true"></div>
+        <h2>It’s not that you <span style="color:var(--rose)">don’t care.</span></h2>
+        <p>Weeks turn into months, and then it feels awkward to get in touch. It happens to anyone with a busy life, and especially to people with ADHD. OhHey does the remembering, so you can do the caring.</p>
       </div>
     </section>
 
-    <section id="rings">
+    <section class="how" id="how">
       <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Try it</p>
-          <h2>Faces that fade, rings that drain.</h2>
-          <p>Every friend has two rings: the outer one for meeting up, the inner one for keeping in touch. Drag the slider to move time forward and watch who drifts. Then tap someone to catch up with them.</p>
+        <div class="sec-head">
+          <div><span class="label">How it works</span><h2>Set it up once. Then it quietly keeps watch.</h2></div>
+          <p>Two rings round each friend: the outer one for meeting up, the inner one for keeping in touch. They drain as time passes, and fill back up when you get in touch.</p>
         </div>
-        <div class="rings-demo reveal">
-          <div class="rings-controls">
-            <label for="rings-skip">Skip ahead</label>
-            <input id="rings-skip" type="range" min="0" max="60" value="0" step="1" />
-            <output id="rings-when" for="rings-skip">Today</output>
-            <button id="rings-reset" type="button">Back to today</button>
-            <p class="rings-summary" id="rings-summary" aria-live="polite"></p>
-          </div>
-          <div class="rings-people" id="rings-people"></div>
-          <div class="rings-key">
-            <div>
-              <h3>How the rings read</h3>
-              <ul>
-                <li><span data-key="ok"></span><span><strong>Draining green:</strong> plenty of time left</span></li>
-                <li><span data-key="soon"></span><span><strong>Amber:</strong> due within a week</span></li>
-                <li><span data-key="overdue"></span><span><strong>Solid red:</strong> overdue</span></li>
-                <li><span data-key="off"></span><span><strong>Dotted:</strong> no reminders, like a pen pal</span></li>
-              </ul>
+        <div class="steps">
+          <div class="step">
+            <div class="frame">
+              <picture>
+                <source srcset="images/app/profile-dark.webp" media="(prefers-color-scheme: dark)" />
+                <img src="images/app/profile-light.webp" alt="A friend’s profile in OhHey, with two rings round their initials and buttons to message, plan or log a catch-up." width="390" height="844" loading="lazy" />
+              </picture>
             </div>
-            <div>
-              <h3>And the faces</h3>
-              <ul>
-                <li>Full colour until someone’s most of the way to due.</li>
-                <li>Then they slowly grey and dim, so drifting friends stand out without a word.</li>
-                <li>Log a catch-up or a message and the colour comes straight back.</li>
-              </ul>
+            <span class="num">01</span>
+            <h3>Add the people you want to see more</h3>
+            <p>Say how often you’d like to meet up, and how often just to be in touch.</p>
+          </div>
+          <div class="step">
+            <div class="frame">
+              <picture>
+                <source srcset="images/app/free-dark.webp" media="(prefers-color-scheme: dark)" />
+                <img src="images/app/free-light.webp" alt="Who’s around: friends nearby who are up for it at short notice and due a catch-up." width="390" height="844" loading="lazy" />
+              </picture>
             </div>
+            <span class="num">02</span>
+            <h3>See who’s due, and who’s free</h3>
+            <p>Got an evening? OhHey suggests who’s nearby, up for it, and overdue.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="adhd">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Out of sight, out of mind?</p>
-          <h2>It’s not that you don’t care.</h2>
-          <p>If friends slip your mind the moment they’re not in front of you, you’re not alone. It happens to anyone with a busy life, and it’s especially familiar to people with ADHD, who often describe it as struggling with object permanence. Weeks turn into months, then it feels awkward to get in touch. OhHey was designed with that in mind.</p>
-        </div>
-        <div class="adhd-grid reveal">
-          <div class="adhd-card">
-            <h3>Always in view</h3>
-            <p>A home-screen widget shows your friends’ faces, with a ring that empties as it’s been a while. Friends don’t vanish the moment you look away.</p>
-          </div>
-          <div class="adhd-card">
-            <h3>Real numbers, not a vague “a while”</h3>
-            <p>“8 days left” or “2 weeks overdue” for everyone. Handy when it’s hard to judge how long it’s been.</p>
-          </div>
-          <div class="adhd-card">
-            <h3>It picks for you</h3>
-            <p>Free tonight? Tap “I’m free” and it suggests who to message. No staring at your contacts, no decision fatigue.</p>
-          </div>
-          <div class="adhd-card">
-            <h3>One tap, then done</h3>
-            <p>Log a catch-up in a tap, even straight from the notification. On Android it can notice when friends message you on WhatsApp, Signal, Telegram or by text. Made a mistake? Undo.</p>
-          </div>
-          <div class="adhd-card">
-            <h3>Remember what they told you</h3>
-            <p>Add a quick note after you meet up: the new job, the house move. Read it before you see them next.</p>
-          </div>
-          <div class="adhd-card">
-            <h3>No guilt, no streaks</h3>
-            <p>No streaks to break and no scolding. Just a friendly “Oh hey, Sam’s due a catch-up” when it’s been longer than you’d like.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="privacy">
-      <div class="wrap">
-        <div class="privacy-band reveal">
-          <div>
-            <p class="eyebrow">Private by design</p>
-            <h2>Your friends stay on your phone.</h2>
-            <p class="privacy-lead">It’s your data. There’s no OhHey server: your friends, notes and plans are never sent to us, so there’s nothing for us to see, sell or lose.</p>
-          </div>
-          <ul>
-            <li><span aria-hidden="true">✓</span>No account and no sign-up</li>
-            <li><span aria-hidden="true">✓</span>No ads and no tracking</li>
-            <li><span aria-hidden="true">✓</span>Rough areas you choose, never live location</li>
-            <li><span aria-hidden="true">✓</span>Backups go only to your own iCloud or Google Drive, in a folder only OhHey can open</li>
-            <li><span aria-hidden="true">✓</span><div>The full <a href="privacy.html">privacy policy</a> is short and plain</div></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="pricing">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Pricing</p>
-          <h2>Free for your closest six.</h2>
-          <p>Everything in OhHey works in the free version. Premium just makes room for everyone else.</p>
-        </div>
-        <div class="plans reveal">
-          <div class="plan">
-            <h3>Free</h3>
-            <p class="price"><b>£0</b></p>
-            <ul>
-              <li>Up to 6 friends, plus the people you live with</li>
-              <li>Every feature: reminders, “I’m free”, plans, birthdays, widgets</li>
-              <li>No ads, no account</li>
-            </ul>
-          </div>
-          <div class="plan premium">
-            <p class="badge">OhHey Premium</p>
-            <h3>Unlimited</h3>
-            <p class="price"><b>£3.49</b> a year</p>
-            <ul>
-              <li>As many friends as you like</li>
-              <li>Everything in Free</li>
-              <li>Supports a small, independent app</li>
-            </ul>
-          </div>
-        </div>
-        <p class="fine reveal">Premium is a yearly subscription through the App Store or Google Play, priced in your local currency. It renews automatically unless you cancel at least 24 hours before the end of the year, and you can cancel any time in your store account. If it ends, you keep every friend you’ve added. See the <a href="terms.html">terms of use</a>.</p>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">FAQ</p>
-          <h2>Questions, answered.</h2>
-        </div>
-        <div class="faq reveal">
-          <details>
-            <summary>How much does it cost?</summary>
-            <div><p>OhHey is free for up to 6 friends (people you live with don’t count), with every feature. OhHey Premium removes the limit for £3.49 a year (or the same in your currency). No ads, ever.</p></div>
-          </details>
-          <details>
-            <summary>Is it good for people with ADHD?</summary>
-            <div><p>Yes. It’s for anyone whose friendships slip when life gets busy, but it was designed with ADHD in mind too: it keeps people in view, cuts down decisions, and never guilt-trips you.</p></div>
-          </details>
-          <details>
-            <summary>What if I’d rather just message some friends?</summary>
-            <div><p>That’s fine. Every friend has two rhythms: how often to meet up, and how often to keep in touch. Turn off meet-up reminders for a pen pal and OhHey will only nudge you to say hello.</p></div>
-          </details>
-          <details>
-            <summary>Does it work on iPhone and Android?</summary>
-            <div><p>Yes, both. A couple of extras differ: on Android, OhHey can optionally notice when a friend messages you on WhatsApp, Signal, Telegram or by text. iPhones don’t allow that, so on iPhone you log contact with a tap instead.</p></div>
-          </details>
-          <details>
-            <summary>Does it read my messages?</summary>
-            <div><p>No. OhHey never reads message text. The optional Android feature only looks at who a message notification is from, so it can note that you were in touch. It’s off unless you turn it on.</p></div>
-          </details>
-          <details>
-            <summary>Do my friends need the app?</summary>
-            <div><p>No. It’s just for you. Your friends don’t get anything from OhHey; when you message them, it opens WhatsApp, Signal, Telegram or your normal messages like you’d expect.</p></div>
-          </details>
-          <details>
-            <summary>Where is my data kept?</summary>
-            <div>
-              <p>Only on your phone. There’s no OhHey account or server.</p>
-              <p>When you type a postcode or town, just that text is looked up to place it on a map. The <a href="privacy.html">privacy policy</a> has the details.</p>
+          <div class="step">
+            <div class="frame center">
+              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. 3 weeks overdue. Last time: new job at the studio. Buttons: Message, Saw them, Next week.">
+                <div class="ic"><svg width="22" height="22" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="3" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="2.6" fill="#E8AE5E"/></svg></div>
+                <b>Oh hey, Sam’s due a catch-up <small>9:00</small></b>
+                <p>3 weeks overdue. Last time: new job at the studio.</p>
+                <div class="acts"><span>Message</span><span>Saw them</span><span>Next week</span></div>
+              </div>
             </div>
-          </details>
-          <details>
-            <summary>What if I get a new phone?</summary>
-            <div><p>OhHey saves a backup each week, and your phone’s iCloud or Google backup keeps it, so it comes across when you move phones. You can also go to Settings → Save a copy elsewhere any time, and choose Restore from a backup on the new phone.</p></div>
-          </details>
-          <details>
-            <summary>What do “Spontaneous”, “Same day” and “Book ahead” mean?</summary>
-            <div><p>How much notice each friend needs. Spontaneous friends are up for it within the hour; book-ahead friends need a couple of weeks. OhHey uses it to suggest the right people at the right time.</p></div>
-          </details>
-          <details>
-            <summary>Will it nag me?</summary>
-            <div><p>Only if you ask it to. Reminders are off until you turn them on, and you can choose which: a daily nudge when someone’s overdue, a Sunday planning nudge, birthdays, a monthly look back, or a check-in after plans. You can log a catch-up straight from the notification.</p></div>
-          </details>
+            <span class="num">03</span>
+            <h3>A gentle nudge, at the right moment</h3>
+            <p>One friend at a time, with their message ready to send. No streaks, no guilt.</p>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--gold)" stroke-width="1.6"/><path d="M13 7v6l4 2" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Two rhythms</h3><p>Meet up monthly, message weekly: each friend their own pace.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M5 18c0-5 4-9 8-9s8 4 8 9" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/><circle cx="13" cy="6" r="2.4" fill="var(--gold)"/></svg><h3>Your messengers</h3><p>One tap to WhatsApp, Signal, Telegram or text, with an opener ready.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="6" width="18" height="15" rx="3" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M4 11h18" stroke="var(--gold)" stroke-width="1.6"/></svg><h3>Birthdays and plans</h3><p>Every birthday for the year, plans in your calendar, and “how did it go?” after.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M3 13h20M13 3c3 3 3 17 0 20M13 3c-3 3-3 17 0 20" fill="none" stroke="var(--gold)" stroke-width="1.3"/></svg><h3>Friends abroad</h3><p>Their time now, and the best times to call, from both your weeks.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M7 4h9l4 4v14H7z" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 13h7M10 17h5" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Notes</h3><p>The new job, the house move: read it before you see them.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/><rect x="14" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--gold)" stroke-width="1.6"/><rect x="4" y="14" width="18" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/></svg><h3>Widgets</h3><p>Faces and rings on your home screen, so nobody vanishes from view.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section class="privacy" id="privacy">
       <div class="wrap">
-        <div class="contact reveal">
-          <p class="eyebrow">Contact</p>
-          <h2>Questions or ideas?</h2>
-          <p>We’d love to hear from you. Usually a reply within a day or two.</p>
-          <!-- Replace with your real address. -->
-          <a class="button" href="mailto:appohhey@gmail.com?subject=OhHey">Email appohhey@gmail.com</a>
+        <div><span class="label">Private by design</span><h2>There’s no OhHey server. Your friends are <span style="color:#F6B9A0">never sent to us.</span></h2></div>
+        <dl>
+          <div><dt>No account, no sign-up</dt><dd>Open the app and start.</dd></div>
+          <div><dt>No ads, no tracking</dt><dd>There’s nothing to sell, so nothing is collected.</dd></div>
+          <div><dt>Rough areas, never live location</dt><dd>You choose a neighbourhood for each friend.</dd></div>
+          <div><dt>Backups to your own cloud</dt><dd>iCloud or Google Drive, in a folder only OhHey can open.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><span class="label">Pricing</span><h2>Free for your closest six.</h2></div>
+          <p>Everything works in the free version. Premium simply makes room for everyone else.</p>
         </div>
+        <div class="plans">
+          <div class="plan"><span class="name">Free</span><div class="price">£0</div><ul><li>Up to 6 friends, plus people you live with</li><li>Every feature</li><li>No ads, no account</li></ul></div>
+          <div class="plan pro"><span class="name">Premium</span><div class="price">£3.49 <small>a year</small></div><ul><li>As many friends as you like</li><li>Everything in Free</li><li>Supports a small, independent app</li></ul></div>
+        </div>
+        <p class="fine">Premium is a yearly subscription through the App Store or Google Play, priced in your local currency. It renews automatically unless you cancel at least 24 hours before the end of the year, and you can cancel any time in your store account. If it ends, you keep every friend you’ve added. See the <a href="terms.html">terms of use</a>.</p>
+      </div>
+    </section>
+
+    <section id="questions" style="padding-top:0">
+      <div class="wrap faq-grid">
+        <div><span class="label">Questions</span><h2>Good to know.</h2><p>Anything else? Email <span class="mail">appohhey@gmail.com</span>.</p></div>
+        <div>
+          <details open><summary>Do my friends need the app?</summary><p>No. Only you use OhHey. It opens WhatsApp, Signal, Telegram or your texts to message them.</p></details>
+          <details><summary>Does it read my messages?</summary><p>No. On Android it can notice who messaged you, so it counts as being in touch. It never reads what they said.</p></details>
+          <details><summary>Will it nag me?</summary><p>No. At most one gentle nudge a day, about one friend. You can snooze anyone, or take a break from reminders altogether.</p></details>
+          <details><summary>Is it good for people with ADHD?</summary><p>It was designed with ADHD in mind: friends stay in view, real numbers instead of “a while”, and no streaks or guilt.</p></details>
+          <details><summary>What if I get a new phone?</summary><p>Restore from your own iCloud or Google Drive backup, and everything comes back.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Be first to try it.</h2>
+        <p>OhHey is coming to iPhone and Android. Drop us a line and we’ll let you know.</p>
+        <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">
-      <span>© <span id="year">2026</span> OhHey</span>
-      <nav aria-label="Footer">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="#faq">FAQ</a>
-        <a href="mailto:appohhey@gmail.com">Contact</a>
-      </nav>
-    </div>
+    <div class="wrap"><span>© 2026 OhHey</span><nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:appohhey@gmail.com">Contact</a></nav></div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // Fade sections in as they scroll into view (skipped if reduced motion is on).
-    const items = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { rootMargin: '0px 0px -10% 0px' });
-      items.forEach((el) => io.observe(el));
-    } else items.forEach((el) => el.classList.add('in'));
-    // Store buttons do nothing until the listings are live.
-    document.querySelectorAll('.store[aria-disabled="true"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+    // The rings demo: four friends, each with a meet-up and a keep-in-touch rhythm. The slider moves time forward;
+    // tapping someone logs a catch-up, and both rings fill back up.
+    const FRIENDS = [
+      { name: 'Sam', ini: 'SJ', meet: 30, touch: 7, seen: 9, touched: 2, tint: '#F6D2C1' },
+      { name: 'Priya', ini: 'PP', meet: 14, touch: 7, seen: 5, touched: 1, tint: '#F3D6E0' },
+      { name: 'Jo', ini: 'JK', meet: 21, touch: 10, seen: 23, touched: 8, tint: '#F8E2BE' },
+      { name: 'Rob', ini: 'RH', meet: 60, touch: 30, seen: 4, touched: 4, tint: '#DDE7D3' },
+    ];
+    const COLORS = { ok: getComputedStyle(document.documentElement).getPropertyValue('--ok').trim() || '#3E8A5F', soon: '#C99437', over: '#C8553F' };
+    let skip = 0;
 
-    // Try the rings. Made-up friends; the same rules as the app (src/lib/logic in the app's code):
-    // a ring drains as the date gets closer, is solid red once overdue and dotted with no reminders, and faces fade
-    // from 80% of the way to due, to at most 70%.
-    (function () {
-      const people = document.getElementById('rings-people');
-      if (!people) return;
-      // seen/touch: days ago today. every/tEvery: the meet-up and keep-in-touch rhythms in days (0: no reminders).
-      const FRIENDS = [
-        { id: 'sam', name: 'Sam', seen: 10, every: 30, touch: 4, tEvery: 7, skin: '#E0B08C', hair: '#3B2A20', bg: '#CFE3D6', top: '#7C5E4A', style: 0 },
-        { id: 'priya', name: 'Priya', seen: 22, every: 30, touch: 5, tEvery: 14, skin: '#B67A52', hair: '#1E1612', bg: '#F3D3C2', top: '#5E7F9E', style: 1 },
-        { id: 'jo', name: 'Jo', seen: 33, every: 30, touch: 2, tEvery: 0, skin: '#EAC3A0', hair: '#2A221E', bg: '#D7DCF1', top: '#8C4A3A', style: 2 },
-        { id: 'jess', name: 'Jess', seen: 200, every: 0, touch: 3, tEvery: 10, skin: '#F1CDB0', hair: '#B5652F', bg: '#F1E1B8', top: '#5E7F9E', style: 1 },
-        { id: 'rob', name: 'Rob', seen: 5, every: 60, touch: 12, tEvery: 30, skin: '#8C5A3C', hair: '#14100E', bg: '#E4D3EE', top: '#3F5E4E', style: 0 },
-      ];
-      let skip = 0;
-      const caught = {}; // id -> the skip value when they last caught up here
-
-      const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-      const days = (n) => `${n} day${n === 1 ? '' : 's'}`;
-      function lane(daysSince, every) {
-        if (!every) return { off: true, text: 'No reminders' };
-        const left = every - daysSince;
-        const text = left > 0 ? `${days(left)} left` : left === 0 ? 'Due today' : `${days(-left)} overdue`;
-        const bucket = left < 0 ? 'overdue' : left <= 7 ? 'soon' : 'ok';
-        return { bucket, text, remaining: Math.max(0, Math.min(1, 1 - daysSince / every)), progress: daysSince / every };
-      }
-      function state(f) {
-        const since = caught[f.id] !== undefined ? skip - caught[f.id] : undefined;
-        const seen = since ?? f.seen + skip;
-        const touch = Math.min(seen, since ?? f.touch + skip); // meeting up counts as keeping in touch
-        const meet = lane(seen, f.every), chat = lane(touch, f.tEvery);
-        const worst = Math.max(meet.progress ?? 0, chat.progress ?? 0);
-        return { meet, chat, worst, fade: Math.min(0.7, Math.max(0, ((worst - 0.8) / 1.2) * 0.7)) };
-      }
-      const colour = (l) => (l.off ? css('--text-2') : css(l.bucket === 'overdue' ? '--overdue' : l.bucket === 'soon' ? '--soon' : '--ok'));
-
-      function ring(size, r, stroke, l) {
-        const c = size / 2, len = 2 * Math.PI * r;
-        if (l.off) return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${css('--text-2')}" stroke-width="${Math.max(1.5, stroke / 2)}" stroke-dasharray="1 ${stroke * 1.6}" opacity=".7"/>`;
-        if (l.bucket === 'overdue') return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${colour(l)}" stroke-width="${stroke}"/>`;
-        return `<circle cx="${c}" cy="${c}" r="${r}" stroke="${css('--sunken')}" stroke-width="${stroke}"/>` +
-          `<circle cx="${c}" cy="${c}" r="${r}" stroke="${colour(l)}" stroke-width="${stroke}" stroke-dasharray="${len}" stroke-dashoffset="${len * (1 - l.remaining)}"/>`;
-      }
-      function rings(size, meet, chat) {
-        const stroke = Math.max(2.5, size / 16), gap = stroke * 0.7, outer = size / 2 - stroke / 2;
-        return `<svg class="rings" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" fill="none" aria-hidden="true">${ring(size, outer, stroke, meet)}${chat ? ring(size, outer - stroke - gap, stroke, chat) : ''}</svg>`;
-      }
-      // A simple drawn portrait, standing in for a contact photo.
-      function portrait(f) {
-        const hair = [
-          `<path d="M26 44c0-16 10-26 24-26s24 10 24 26c-4-8-12-12-24-12s-20 4-24 12z" fill="${f.hair}"/>`,
-          `<path d="M24 50c0-20 10-32 26-32s26 12 26 32v22h-8V46c-6-6-12-8-18-8s-12 2-18 8v26h-8z" fill="${f.hair}"/>`,
-          `<path d="M27 42c2-14 11-22 23-22s21 8 23 22c-6-4-10-10-12-14-6 8-20 12-34 14z" fill="${f.hair}"/>`,
-        ][f.style];
-        return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="${f.bg}"/><path d="M14 104c4-22 18-32 36-32s32 10 36 32z" fill="${f.top}"/><rect x="42" y="58" width="16" height="16" rx="6" fill="${f.skin}"/><ellipse cx="50" cy="46" rx="20" ry="23" fill="${f.skin}"/>${hair}<circle cx="42" cy="48" r="2.2" fill="#2A1E18"/><circle cx="58" cy="48" r="2.2" fill="#2A1E18"/><path d="M43 58q7 5 14 0" stroke="#2A1E18" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
-      }
-
-      function render() {
-        const list = FRIENDS.map((f) => ({ f, s: state(f) }));
-        people.innerHTML = list.map(({ f, s }) => `
-          <button class="ring-person" type="button" data-id="${f.id}" aria-label="${f.name}. Meeting up: ${s.meet.text}. Keeping in touch: ${s.chat.text}. Tap to log a catch-up.">
-            <span class="rface"><span class="pic" style="filter:grayscale(${s.fade / 0.7});opacity:${1 - s.fade * 0.6}">${portrait(f)}</span>${rings(96, s.meet, s.chat)}</span>
-            <span class="who">${f.name}</span>
-            <span class="lanes"><span>Meet: <b style="color:${colour(s.meet)}">${s.meet.text}</b></span><span>Talk: <b style="color:${colour(s.chat)}">${s.chat.text}</b></span></span>
-          </button>`).join('');
-        const overdue = list.filter(({ s }) => s.meet.bucket === 'overdue' || s.chat.bucket === 'overdue').map(({ f }) => f.name);
-        document.getElementById('rings-summary').textContent = overdue.length
-          ? `${overdue.length === 1 ? overdue[0] + ' is' : overdue.slice(0, -1).join(', ') + ' and ' + overdue.slice(-1) + ' are'} overdue. Tap a face to catch up.`
-          : 'Everyone’s up to date.';
-      }
-      function key() {
-        const sample = { ok: { bucket: 'ok', remaining: 0.7 }, soon: { bucket: 'soon', remaining: 0.2 }, overdue: { bucket: 'overdue' }, off: { off: true } };
-        document.querySelectorAll('[data-key]').forEach((el) => (el.innerHTML = rings(26, sample[el.dataset.key])));
-      }
-
-      people.addEventListener('click', (e) => {
-        const b = e.target.closest('.ring-person');
-        if (!b) return;
-        caught[b.dataset.id] = skip;
-        render();
-        const again = people.querySelector(`[data-id="${b.dataset.id}"]`);
-        again.focus();
-        again.querySelector('.rface').classList.add('bloom');
-      });
-      const range = document.getElementById('rings-skip');
-      const when = document.getElementById('rings-when');
-      range.addEventListener('input', () => {
-        skip = Number(range.value);
-        when.textContent = skip === 0 ? 'Today' : `+${days(skip)}`;
-        render();
-      });
-      document.getElementById('rings-reset').addEventListener('click', () => {
-        skip = 0; range.value = 0; when.textContent = 'Today';
-        for (const k in caught) delete caught[k];
-        render();
-      });
-      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { render(); key(); });
+    function ring(days, every) {
+      const left = every - days;
+      return { left, remaining: Math.max(0, Math.min(1, 1 - days / every)), color: left < 0 ? COLORS.over : left <= 7 ? COLORS.soon : COLORS.ok };
+    }
+    function arc(r, s, w) {
+      const len = 2 * Math.PI * r;
+      const full = s.left < 0 ? 1 : s.remaining;
+      return `<circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--line)" stroke-width="${w}"/>` +
+        `<circle cx="32" cy="32" r="${r}" fill="none" stroke="${s.color}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${len * full} ${len}" transform="rotate(-90 32 32)" style="transition: stroke-dasharray .5s ease, stroke .5s ease"/>`;
+    }
+    const say = (s, label) => (s.left < 0 ? `${label} ${-s.left}d over` : s.left === 0 ? `${label} today` : `${label} in ${s.left}d`);
+    function render() {
+      document.getElementById('skipOut').textContent = skip === 0 ? 'Today' : skip < 14 ? `+${skip} days` : `+${Math.round(skip / 7)} weeks`;
+      document.getElementById('faces').innerHTML = FRIENDS.map((f, i) => {
+        const meet = ring(f.seen + skip, f.meet);
+        const touch = ring(f.touched + skip, f.touch);
+        const worst = Math.max(1 - meet.remaining, 1 - touch.remaining);
+        const fade = Math.min(0.55, Math.max(0, (worst - 0.8) * 1.4));
+        return `<button class="f" type="button" data-i="${i}" aria-label="${f.name}. ${say(meet, 'Meet up')}. ${say(touch, 'In touch')}. Tap to log a catch-up.">` +
+          `<svg viewBox="0 0 64 64" aria-hidden="true">${arc(28, meet, 4)}${arc(21, touch, 4)}` +
+          `<circle cx="32" cy="32" r="15" fill="${f.tint}" opacity="${1 - fade}"/>` +
+          `<text x="32" y="36.5" text-anchor="middle" font-size="12" font-weight="700" fill="#7D3F51" font-family="Figtree, -apple-system, Segoe UI, Arial, sans-serif" opacity="${1 - fade * 0.6}">${f.ini}</text></svg>` +
+          `<b>${f.name}</b><small>${say(meet, 'Meet')}<br>${say(touch, 'Talk')}</small></button>`;
+      }).join('');
+    }
+    document.getElementById('skip').addEventListener('input', (e) => { skip = Number(e.target.value); render(); });
+    document.getElementById('faces').addEventListener('click', (e) => {
+      const b = e.target.closest('.f');
+      if (!b) return;
+      const f = FRIENDS[Number(b.dataset.i)];
+      f.seen = -skip; f.touched = -skip;
       render();
-      key();
-    })();
+    });
+    render();
   </script>
 </body>
 </html>
