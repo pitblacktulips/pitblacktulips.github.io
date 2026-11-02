@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- A design prototype: not linked from the site, and kept out of search results. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>OhHey · Prototype 3</title>
+  <link rel="icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" />
+  <style>
+/* Layout: "Garden", warmed. The same calm structure as prototype 2, in warm mid-tones: a blush-white page, deep plum
+   for type and buttons, soft apricot panels, raspberry-rose for a few words, honey for fine detail. Rounder type. */
+:root {
+  --linen: #FFF8F4;      /* the page: warm white with a hint of blush */
+  --paper: #FFFFFF;      /* cards */
+  --sage: #FCE6D8;       /* soft apricot panels */
+  --sage-deep: #F3CFBA;  /* hairlines on apricot */
+  --pine: #4A2C3A;       /* plum: headings, buttons, the privacy band */
+  --pine-ink: #3A2730;   /* body text */
+  --moss: #7E6770;       /* secondary text */
+  --gold: #D4913A;       /* honey: fine detail only */
+  --rose: #B04A66;       /* raspberry-rose: a few highlighted words */
+  --on-pine: #FFF3EC;
+  --on-pine-soft: #D9BCC4;
+  --line: rgba(74, 44, 58, .1);
+  --ok: #3E8A5F; --soon: #C99437; --over: #C8553F;
+  --sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --hand: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linen: #1C1418; --paper: #251B20; --sage: #33242B; --sage-deep: #45313A; --pine: #F7D9C8; --pine-ink: #F4E7EA;
+    --moss: #C4ABB4; --gold: #E8AE5E; --rose: #F19BB0; --on-pine: #2A1B21; --on-pine-soft: #6D4C59; --line: rgba(244, 231, 234, .1);
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--linen); color: var(--pine-ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1140px; margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; color: var(--pine); text-wrap: balance; font-weight: 700; letter-spacing: -0.025em; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.label { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--moss); display: inline-flex; align-items: center; gap: 10px; }
+.label::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--gold); }
+
+/* Nav */
+header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--linen) 88%, transparent); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; }
+.nav { display: flex; align-items: center; gap: 12px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.04em; color: var(--pine); text-decoration: none; }
+.nav ul { list-style: none; display: flex; gap: 30px; margin: 0 0 0 auto; padding: 0; font-size: 15px; color: var(--moss); }
+.nav ul a { text-decoration: none; }
+.nav ul a:hover { color: var(--pine); }
+@media (max-width: 780px) { .nav ul { display: none; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--pine); color: var(--on-pine); font-weight: 600; font-size: 16px; text-decoration: none; letter-spacing: -0.01em; transition: transform .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn.small { min-height: 40px; padding: 0 18px; font-size: 14.5px; }
+.nav .btn { margin-left: 18px; }
+@media (max-width: 780px) { .nav .btn { margin-left: auto; } }
+.textlink { font-weight: 600; color: var(--pine); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-block: 72px 96px; }
+@media (max-width: 920px) { .hero { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 40px 72px; } }
+.hero h1 { font-size: clamp(42px, 6.2vw, 74px); line-height: 1; letter-spacing: -0.03em; margin-top: 22px; font-weight: 700; }
+.hero h1 .soft { color: var(--rose); }
+.hero .lead { margin-top: 24px; font-size: 20px; line-height: 1.55; color: var(--moss); max-width: 33ch; }
+.hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 32px; }
+.hero .cta small { font-size: 14px; color: var(--moss); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 40px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); list-style: none; font-size: 14.5px; color: var(--moss); }
+.facts b { color: var(--pine); font-weight: 600; }
+
+/* Hero visual: a real screen, with the rings demo floating over it */
+.visual { position: relative; min-height: 560px; }
+@media (max-width: 920px) { .visual { min-height: 0; display: flex; flex-direction: column; gap: 20px; } }
+.panel { position: absolute; inset: 0 0 0 60px; background: var(--sage); border-radius: 44px; }
+@media (max-width: 920px) { .panel { inset: 40px -24px 40px -24px; border-radius: 0; } }
+.device { position: relative; width: 270px; margin: 36px 0 0 120px; border-radius: 42px; padding: 9px; background: #2A1B21; box-shadow: 0 40px 70px -40px rgba(74, 44, 58, .55); }
+.device picture { display: block; width: 100%; }
+.device img { border-radius: 34px; aspect-ratio: 390 / 760; object-fit: cover; object-position: top; width: 100%; height: auto; }
+@media (max-width: 920px) { .device { margin: 0 auto; width: 240px; } }
+.demo .note { position: absolute; bottom: -42px; left: 18px; font-family: var(--hand); font-size: 30px; color: var(--rose); transform: rotate(-3deg); white-space: nowrap; }
+@media (max-width: 920px) { .demo { margin-bottom: 40px; } }
+.demo { position: absolute; left: 0; bottom: 30px; width: min(390px, 100%); background: var(--paper); border-radius: 24px; padding: 20px 20px 16px; box-shadow: 0 30px 60px -30px rgba(74, 44, 58, .45), 0 0 0 1px var(--line); }
+@media (max-width: 920px) { .demo { position: relative; left: auto; bottom: auto; width: 100%; } }
+.demo-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.demo-head b { font-size: 15px; color: var(--pine); }
+.demo-head span { font-size: 12.5px; color: var(--moss); }
+.faces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin-top: 14px; }
+.f { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: 0; padding: 6px 0; border-radius: 14px; font: inherit; color: inherit; cursor: pointer; }
+.f:hover { background: var(--linen); }
+.f svg { width: 64px; height: 64px; }
+.f b { font-size: 13.5px; font-weight: 600; color: var(--pine); }
+.f small { font-size: 11.5px; color: var(--moss); line-height: 1.3; text-align: center; min-height: 30px; font-variant-numeric: tabular-nums; }
+.slider { display: grid; grid-template-columns: auto minmax(0, 1fr) 70px; align-items: center; gap: 12px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; }
+.slider label { font-weight: 600; color: var(--pine); }
+.slider input { accent-color: var(--pine); width: 100%; }
+.slider output { text-align: right; color: var(--moss); font-variant-numeric: tabular-nums; }
+
+/* Sections */
+section { padding-block: 112px; }
+@media (max-width: 780px) { section { padding-block: 72px; } }
+.statement { text-align: center; }
+.statement h2 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.03em; margin: 20px auto 0; max-width: 16ch; font-weight: 700; }
+.statement p { margin: 24px auto 0; max-width: 52ch; font-size: 19px; color: var(--moss); }
+.rule { width: 10px; height: 10px; border-radius: 99px; background: var(--gold); margin: 0 auto; box-shadow: -18px 0 0 var(--sage-deep), 18px 0 0 var(--sage-deep); }
+
+.how { border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+@media (max-width: 780px) { .sec-head { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+.sec-head h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.sec-head p { color: var(--moss); font-size: 17px; max-width: 44ch; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+@media (max-width: 920px) { .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
+.step { display: flex; flex-direction: column; gap: 14px; }
+.frame { background: var(--sage); border-radius: 34px; aspect-ratio: 1 / .9; overflow: hidden; display: flex; justify-content: center; padding-top: 28px; }
+.frame picture { display: block; width: 72%; max-width: 270px; }
+.frame img { width: 100%; height: auto; border-radius: 26px 26px 0 0; aspect-ratio: 390 / 560; object-fit: cover; object-position: top; box-shadow: 0 24px 40px -24px rgba(74, 44, 58, .5); }
+.frame.center { align-items: center; padding: 24px; }
+.num { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--gold); font-variant-numeric: tabular-nums; }
+.step h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; }
+.step p { color: var(--moss); font-size: 16px; }
+.ping { width: 100%; max-width: 330px; background: color-mix(in srgb, var(--paper) 94%, transparent); border-radius: 20px; padding: 14px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 3px 12px; box-shadow: 0 24px 40px -26px rgba(74, 44, 58, .55), 0 0 0 1px var(--line); }
+.ping .ic { grid-row: span 2; width: 38px; height: 38px; border-radius: 10px; background: #4A2C3A; display: grid; place-items: center; }
+.ping b { font-size: 14px; color: var(--pine-ink); display: flex; justify-content: space-between; gap: 8px; }
+.ping b small { font-weight: 500; color: var(--moss); font-size: 12px; }
+.ping p { color: var(--moss); font-size: 13.5px; line-height: 1.4; }
+.ping .acts { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ping .acts span { font-size: 12px; font-weight: 600; background: var(--linen); color: var(--pine-ink); border-radius: 99px; padding: 5px 11px; white-space: nowrap; }
+
+.features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 56px; border-top: 1px solid var(--line); }
+@media (max-width: 920px) { .features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .features { grid-template-columns: minmax(0, 1fr); } }
+.feature { padding: 28px 28px 28px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.feature svg { width: 26px; height: 26px; }
+.feature h3 { font-size: 18px; letter-spacing: -0.015em; margin-top: 6px; }
+.feature p { font-size: 15.5px; color: var(--moss); }
+
+.privacy { background: var(--pine); color: var(--on-pine); }
+.privacy .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center; }
+@media (max-width: 920px) { .privacy .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+.privacy .label { color: var(--on-pine-soft); }
+.privacy h2 { color: var(--on-pine); font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -0.03em; margin-top: 18px; font-weight: 700; }
+.privacy dl { margin: 0; display: grid; gap: 0; }
+.privacy dl div { padding: 16px 0; border-top: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.privacy dl div:last-child { border-bottom: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); }
+.privacy dt { font-weight: 600; }
+.privacy dd { margin: 0; color: var(--on-pine-soft); font-size: 15.5px; }
+@media (prefers-color-scheme: dark) { .privacy dd { color: #6D4C59; } }
+
+.pricing .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; max-width: 760px; }
+@media (max-width: 640px) { .pricing .plans { grid-template-columns: minmax(0, 1fr); } }
+.plan { background: var(--paper); border: 1px solid var(--line); border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 12px; }
+.plan.pro { background: var(--sage); border-color: var(--sage-deep); }
+.plan .name { font-size: 15px; font-weight: 600; color: var(--moss); }
+.plan .price { font-size: 44px; font-weight: 800; letter-spacing: -0.04em; color: var(--pine); line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .price small { font-size: 16px; font-weight: 500; color: var(--moss); letter-spacing: 0; }
+.plan ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; }
+.plan li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; color: var(--pine-ink); }
+.plan li::before { content: "✓"; color: var(--gold); font-weight: 700; }
+.fine { margin-top: 18px; font-size: 13.5px; color: var(--moss); max-width: 70ch; }
+
+.faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+.faq-grid h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.faq-grid > div > p { margin-top: 16px; color: var(--moss); }
+details { border-bottom: 1px solid var(--line); }
+details:first-of-type { border-top: 1px solid var(--line); }
+summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; font-weight: 600; font-size: 18px; color: var(--pine); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 1.5px solid var(--moss); border-bottom: 1.5px solid var(--moss); transform: rotate(45deg) translateY(-3px); transition: transform .2s ease; }
+details[open] summary::after { transform: rotate(-135deg) translateX(-2px); }
+details p { padding: 0 0 22px; color: var(--moss); max-width: 58ch; }
+
+.closing { text-align: center; padding-block: 96px 120px; border-top: 1px solid var(--line); }
+.closing h2 { font-size: clamp(32px, 4.6vw, 54px); letter-spacing: -0.03em; line-height: 1.05; font-weight: 700; }
+.closing p { margin: 18px auto 30px; color: var(--moss); max-width: 46ch; }
+.mail { font-weight: 600; color: var(--pine); user-select: all; }
+footer { border-top: 1px solid var(--line); font-size: 14px; color: var(--moss); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
+footer nav { display: flex; gap: 22px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--pine); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } .demo circle { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="9" fill="#4A2C3A"/><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="4.4" fill="none" stroke="#E8AE5E" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="17 99" transform="rotate(-90 15 15)"/></svg>
+        OhHey
+      </a>
+      <ul><li><a href="#how">How it works</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#questions">Questions</a></li></ul>
+      <a class="btn small" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <span class="label">Reminders for friends</span>
+        <h1>Turn “we should catch up” <span class="soft">into plans.</span></h1>
+        <p class="lead">OhHey keeps count of how long it’s been with the people you love, and nudges you gently before anyone drifts.</p>
+        <div class="cta">
+          <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
+          <small>Coming to iPhone and Android</small>
+        </div>
+        <ul class="facts"><li><b>No account.</b> Open it and start</li><li><b>No ads.</b> Nothing to sell</li><li><b>Private.</b> It all stays on your phone</li></ul>
+      </div>
+
+      <div class="visual">
+        <div class="panel" aria-hidden="true"></div>
+        <div class="device">
+          <picture>
+            <source srcset="images/home-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="images/home-light.webp" alt="OhHey’s Home screen: who could make it this weekend, and your circle by who’s up to date and who’s drifting." width="390" height="844" />
+          </picture>
+        </div>
+        <div class="demo" aria-label="Try it: the rings round each friend">
+          <span class="note" aria-hidden="true">↑ oh hey!</span>
+          <div class="demo-head"><b>Try the rings</b><span>Tap a face to catch up</span></div>
+          <div class="faces" id="faces"></div>
+          <div class="slider">
+            <label for="skip">Skip ahead</label>
+            <input id="skip" type="range" min="0" max="42" value="0" step="1" />
+            <output id="skipOut" for="skip">Today</output>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="statement">
+      <div class="wrap">
+        <div class="rule" aria-hidden="true"></div>
+        <h2>It’s not that you <span style="color:var(--rose)">don’t care.</span></h2>
+        <p>Weeks turn into months, and then it feels awkward to get in touch. It happens to anyone with a busy life, and especially to people with ADHD. OhHey does the remembering, so you can do the caring.</p>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><span class="label">How it works</span><h2>Set it up once. Then it quietly keeps watch.</h2></div>
+          <p>Two rings round each friend: the outer one for meeting up, the inner one for keeping in touch. They drain as time passes, and fill back up when you get in touch.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="frame">
+              <picture>
+                <source srcset="images/profile-dark.webp" media="(prefers-color-scheme: dark)" />
+                <img src="images/profile-light.webp" alt="A friend’s profile in OhHey, with two rings round their initials and buttons to message, plan or log a catch-up." width="390" height="844" loading="lazy" />
+              </picture>
+            </div>
+            <span class="num">01</span>
+            <h3>Add the people you want to see more</h3>
+            <p>Say how often you’d like to meet up, and how often just to be in touch.</p>
+          </div>
+          <div class="step">
+            <div class="frame">
+              <picture>
+                <source srcset="images/free-dark.webp" media="(prefers-color-scheme: dark)" />
+                <img src="images/free-light.webp" alt="Who’s around: friends nearby who are up for it at short notice and due a catch-up." width="390" height="844" loading="lazy" />
+              </picture>
+            </div>
+            <span class="num">02</span>
+            <h3>See who’s due, and who’s free</h3>
+            <p>Got an evening? OhHey suggests who’s nearby, up for it, and overdue.</p>
+          </div>
+          <div class="step">
+            <div class="frame center">
+              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. 3 weeks overdue. Last time: new job at the studio. Buttons: Message, Saw them, Next week.">
+                <div class="ic"><svg width="22" height="22" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="3" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="2.6" fill="#E8AE5E"/></svg></div>
+                <b>Oh hey, Sam’s due a catch-up <small>9:00</small></b>
+                <p>3 weeks overdue. Last time: new job at the studio.</p>
+                <div class="acts"><span>Message</span><span>Saw them</span><span>Next week</span></div>
+              </div>
+            </div>
+            <span class="num">03</span>
+            <h3>A gentle nudge, at the right moment</h3>
+            <p>One friend at a time, with their message ready to send. No streaks, no guilt.</p>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--gold)" stroke-width="1.6"/><path d="M13 7v6l4 2" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Two rhythms</h3><p>Meet up monthly, message weekly: each friend their own pace.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M5 18c0-5 4-9 8-9s8 4 8 9" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/><circle cx="13" cy="6" r="2.4" fill="var(--gold)"/></svg><h3>Your messengers</h3><p>One tap to WhatsApp, Signal, Telegram or text, with an opener ready.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="6" width="18" height="15" rx="3" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M4 11h18" stroke="var(--gold)" stroke-width="1.6"/></svg><h3>Birthdays and plans</h3><p>Every birthday for the year, plans in your calendar, and “how did it go?” after.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M3 13h20M13 3c3 3 3 17 0 20M13 3c-3 3-3 17 0 20" fill="none" stroke="var(--gold)" stroke-width="1.3"/></svg><h3>Friends abroad</h3><p>Their time now, and the best times to call, from both your weeks.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M7 4h9l4 4v14H7z" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 13h7M10 17h5" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Notes</h3><p>The new job, the house move: read it before you see them.</p></div>
+          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/><rect x="14" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--gold)" stroke-width="1.6"/><rect x="4" y="14" width="18" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/></svg><h3>Widgets</h3><p>Faces and rings on your home screen, so nobody vanishes from view.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy" id="privacy">
+      <div class="wrap">
+        <div><span class="label">Private by design</span><h2>There’s no OhHey server. Your friends are <span style="color:#F6B9A0">never sent to us.</span></h2></div>
+        <dl>
+          <div><dt>No account, no sign-up</dt><dd>Open the app and start.</dd></div>
+          <div><dt>No ads, no tracking</dt><dd>There’s nothing to sell, so nothing is collected.</dd></div>
+          <div><dt>Rough areas, never live location</dt><dd>You choose a neighbourhood for each friend.</dd></div>
+          <div><dt>Backups to your own cloud</dt><dd>iCloud or Google Drive, in a folder only OhHey can open.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><span class="label">Pricing</span><h2>Free for your closest six.</h2></div>
+          <p>Everything works in the free version. Premium simply makes room for everyone else.</p>
+        </div>
+        <div class="plans">
+          <div class="plan"><span class="name">Free</span><div class="price">£0</div><ul><li>Up to 6 friends, plus people you live with</li><li>Every feature</li><li>No ads, no account</li></ul></div>
+          <div class="plan pro"><span class="name">Premium</span><div class="price">£3.49 <small>a year</small></div><ul><li>As many friends as you like</li><li>Everything in Free</li><li>Supports a small, independent app</li></ul></div>
+        </div>
+        <p class="fine">A yearly subscription through the App Store or Google Play. Cancel any time, and you keep every friend you’ve added.</p>
+      </div>
+    </section>
+
+    <section id="questions" style="padding-top:0">
+      <div class="wrap faq-grid">
+        <div><span class="label">Questions</span><h2>Good to know.</h2><p>Anything else? Email <span class="mail">appohhey@gmail.com</span>.</p></div>
+        <div>
+          <details open><summary>Do my friends need the app?</summary><p>No. Only you use OhHey. It opens WhatsApp, Signal, Telegram or your texts to message them.</p></details>
+          <details><summary>Does it read my messages?</summary><p>No. On Android it can notice who messaged you, so it counts as being in touch. It never reads what they said.</p></details>
+          <details><summary>Will it nag me?</summary><p>No. At most one gentle nudge a day, about one friend. You can snooze anyone, or take a break from reminders altogether.</p></details>
+          <details><summary>Is it good for people with ADHD?</summary><p>It was designed with ADHD in mind: friends stay in view, real numbers instead of “a while”, and no streaks or guilt.</p></details>
+          <details><summary>What if I get a new phone?</summary><p>Restore from your own iCloud or Google Drive backup, and everything comes back.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Be first to try it.</h2>
+        <p>OhHey is coming to iPhone and Android. Drop us a line and we’ll let you know.</p>
+        <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>© 2026 OhHey</span><nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:appohhey@gmail.com">Contact</a></nav></div>
+  </footer>
+
+  <script>
+    // The rings demo: four friends, each with a meet-up and a keep-in-touch rhythm. The slider moves time forward;
+    // tapping someone logs a catch-up, and both rings fill back up.
+    const FRIENDS = [
+      { name: 'Sam', ini: 'SJ', meet: 30, touch: 7, seen: 9, touched: 2, tint: '#F6D2C1' },
+      { name: 'Priya', ini: 'PP', meet: 14, touch: 7, seen: 5, touched: 1, tint: '#F3D6E0' },
+      { name: 'Jo', ini: 'JK', meet: 21, touch: 10, seen: 23, touched: 8, tint: '#F8E2BE' },
+      { name: 'Rob', ini: 'RH', meet: 60, touch: 30, seen: 4, touched: 4, tint: '#DDE7D3' },
+    ];
+    const COLORS = { ok: getComputedStyle(document.documentElement).getPropertyValue('--ok').trim() || '#3E8A5F', soon: '#C99437', over: '#C8553F' };
+    let skip = 0;
+
+    function ring(days, every) {
+      const left = every - days;
+      return { left, remaining: Math.max(0, Math.min(1, 1 - days / every)), color: left < 0 ? COLORS.over : left <= 7 ? COLORS.soon : COLORS.ok };
+    }
+    function arc(r, s, w) {
+      const len = 2 * Math.PI * r;
+      const full = s.left < 0 ? 1 : s.remaining;
+      return `<circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--line)" stroke-width="${w}"/>` +
+        `<circle cx="32" cy="32" r="${r}" fill="none" stroke="${s.color}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${len * full} ${len}" transform="rotate(-90 32 32)" style="transition: stroke-dasharray .5s ease, stroke .5s ease"/>`;
+    }
+    const say = (s, label) => (s.left < 0 ? `${label} ${-s.left}d over` : s.left === 0 ? `${label} today` : `${label} in ${s.left}d`);
+    function render() {
+      document.getElementById('skipOut').textContent = skip === 0 ? 'Today' : skip < 14 ? `+${skip} days` : `+${Math.round(skip / 7)} weeks`;
+      document.getElementById('faces').innerHTML = FRIENDS.map((f, i) => {
+        const meet = ring(f.seen + skip, f.meet);
+        const touch = ring(f.touched + skip, f.touch);
+        const worst = Math.max(1 - meet.remaining, 1 - touch.remaining);
+        const fade = Math.min(0.55, Math.max(0, (worst - 0.8) * 1.4));
+        return `<button class="f" type="button" data-i="${i}" aria-label="${f.name}. ${say(meet, 'Meet up')}. ${say(touch, 'In touch')}. Tap to log a catch-up.">` +
+          `<svg viewBox="0 0 64 64" aria-hidden="true">${arc(28, meet, 4)}${arc(21, touch, 4)}` +
+          `<circle cx="32" cy="32" r="15" fill="${f.tint}" opacity="${1 - fade}"/>` +
+          `<text x="32" y="36.5" text-anchor="middle" font-size="12" font-weight="700" fill="#4A2C3A" font-family="Figtree, -apple-system, Segoe UI, Arial, sans-serif" opacity="${1 - fade * 0.6}">${f.ini}</text></svg>` +
+          `<b>${f.name}</b><small>${say(meet, 'Meet')}<br>${say(touch, 'Talk')}</small></button>`;
+      }).join('');
+    }
+    document.getElementById('skip').addEventListener('input', (e) => { skip = Number(e.target.value); render(); });
+    document.getElementById('faces').addEventListener('click', (e) => {
+      const b = e.target.closest('.f');
+      if (!b) return;
+      const f = FRIENDS[Number(b.dataset.i)];
+      f.seen = -skip; f.touched = -skip;
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
