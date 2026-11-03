@@ -632,7 +632,7 @@ function sceneItems(withChar) {
   items.sort((p, q) => p.key - q.key);
   return items;
 }
-function nodeKey(id) { const b = byId[id]; const c = wp(b, [.5, .5, .5]); return c[0] + c[1] + c[2] + (b.kind === 'stair' ? .55 : 1.001); }
+function nodeKey(id) { const b = byId[id]; const c = wp(b, [.5, .5, .5]); return c[0] + c[1] + c[2] + 3 * (apparentK[id] || 0) + (b.kind === 'stair' ? .55 : 1.001); }
 function charKey() { if (char.hop) return Math.max(nodeKey(char.hop.from), nodeKey(char.hop.to)); return nodeKey(char.node); }
 
 /* =====================================================================
@@ -698,7 +698,18 @@ function computeGraph() {
   }
   return gph;
 }
-function refreshGraph() { graph = computeGraph(); }
+/* A tile joined to another only by illusion is *seen* where that other tile is.
+   Remember how far along the view line it appears to sit, so the Lamplighter is
+   drawn at that apparent depth rather than its true (hidden-away) one. */
+const apparentK = {};
+function refreshGraph() {
+  graph = computeGraph();
+  for (const [id, edges] of graph) for (const e of edges) {
+    const back = graph.get(e.to).find(x => x.to === id);
+    const k = Math.round(back.mid[2] - e.mid[2]);
+    if (k > (apparentK[id] || 0)) apparentK[id] = k;
+  }
+}
 function isMoving(b) { const g = grp(b); return !!(g && (g.tw || (drag && drag.name === b.group))); }
 
 function findPath(from, to) {
