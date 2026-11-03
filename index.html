@@ -104,7 +104,38 @@ header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb
 .slider input { accent-color: var(--pine); width: 100%; }
 .slider output { text-align: right; color: var(--moss); font-variant-numeric: tabular-nums; }
 
+/* Ring key, inside the demo and in "Reading the rings" */
+.key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin-top: 8px; font-size: 12px; color: var(--moss); }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key a { margin-left: auto; color: var(--rose); font-weight: 600; text-decoration: none; }
+.key a:hover { text-decoration: underline; }
+.k-ring { display: inline-block; flex: none; width: 14px; height: 14px; border-radius: 99px; border: 2.5px solid var(--ok); }
+.k-ring.inner { width: 10px; height: 10px; margin: 2px; border-width: 2.5px; }
+.k-ring.big { width: 26px; height: 26px; border-width: 4px; margin-top: 2px; }
+.k-ring.inner.big { width: 18px; height: 18px; margin: 6px 4px 0; }
+
+.rings { border-top: 1px solid var(--line); }
+.rings-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: center; }
+@media (max-width: 920px) { .rings-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+.ring-art { margin: 0; background: var(--sage); border-radius: 34px; padding: 40px 32px 32px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.ring-art svg { width: min(240px, 100%); height: auto; }
+.ring-art figcaption { text-align: center; display: flex; flex-direction: column; gap: 2px; }
+.ring-art figcaption b { color: var(--pine); font-size: 18px; }
+.ring-art figcaption span { color: var(--moss); font-size: 14.5px; }
+.rings-copy h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; }
+.rings-copy .lead { margin-top: 16px; color: var(--moss); font-size: 18px; max-width: 48ch; }
+.ring-list { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-direction: column; gap: 16px; }
+.ring-list li { display: flex; gap: 14px; align-items: flex-start; }
+.ring-list b { color: var(--pine); }
+.ring-colours { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 15px; color: var(--moss); }
+.ring-colours li { display: inline-flex; align-items: center; gap: 8px; }
+.ring-colours i { width: 12px; height: 12px; border-radius: 99px; }
+.ring-colours b { color: var(--pine-ink); font-weight: 600; }
+.rings-copy .hint { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--moss); font-size: 15px; }
+.rings-copy .hint b { color: var(--pine); }
+
 /* Sections */
+section[id] { scroll-margin-top: 72px; }
 section { padding-block: 112px; }
 @media (max-width: 780px) { section { padding-block: 72px; } }
 .statement { text-align: center; }
@@ -228,6 +259,7 @@ footer a:hover { color: var(--pine); }
           <span class="note" aria-hidden="true">↑ oh hey!</span>
           <div class="demo-head"><b>Try the rings</b><span>Tap a face to catch up</span></div>
           <div class="faces" id="faces"></div>
+          <p class="key"><span><i class="k-ring outer"></i>Outer: meeting up</span><span><i class="k-ring inner"></i>Inner: keeping in touch</span><a href="#rings">What the colours mean</a></p>
           <div class="slider">
             <label for="skip">Skip ahead</label>
             <input id="skip" type="range" min="0" max="42" value="0" step="1" />
@@ -242,6 +274,37 @@ footer a:hover { color: var(--pine); }
         <div class="rule" aria-hidden="true"></div>
         <h2>It’s not that you <span style="color:var(--rose)">don’t care.</span></h2>
         <p>Weeks turn into months, and then it feels awkward to get in touch. It happens to anyone with a busy life, and especially to people with ADHD. OhHey does the remembering, so you can do the caring.</p>
+      </div>
+    </section>
+
+    <section class="rings" id="rings">
+      <div class="wrap rings-grid">
+        <figure class="ring-art" aria-hidden="true">
+          <svg viewBox="0 0 240 240">
+            <circle cx="120" cy="120" r="104" fill="none" stroke="var(--line)" stroke-width="14"/>
+            <circle cx="120" cy="120" r="104" fill="none" stroke="var(--ok)" stroke-width="14" stroke-linecap="round" stroke-dasharray="457 654" transform="rotate(-90 120 120)"/>
+            <circle cx="120" cy="120" r="78" fill="none" stroke="var(--line)" stroke-width="14"/>
+            <circle cx="120" cy="120" r="78" fill="none" stroke="var(--soon)" stroke-width="14" stroke-linecap="round" stroke-dasharray="110 490" transform="rotate(-90 120 120)"/>
+            <circle cx="120" cy="120" r="56" fill="#F6D2C1"/>
+            <text x="120" y="135" text-anchor="middle" font-size="42" font-weight="700" fill="#7D3F51" font-family="Figtree, -apple-system, Segoe UI, Arial, sans-serif">SJ</text>
+          </svg>
+          <figcaption><b>Sam</b><span>Meet up in 21 days · Message in 2 days</span></figcaption>
+        </figure>
+        <div class="rings-copy">
+          <span class="label">Reading the rings</span>
+          <h2>Two rings round every friend.</h2>
+          <p class="lead">Each ring is a countdown. It starts full when you catch up, and empties as the days pass, until it’s time to get in touch again.</p>
+          <ul class="ring-list">
+            <li><i class="k-ring outer big"></i><div><b>The outer ring is for meeting up.</b> Full when you’ve just seen them, empty when it’s time to meet again: every month, say.</div></li>
+            <li><i class="k-ring inner big"></i><div><b>The inner ring is for keeping in touch.</b> A message, a call, a voice note. It runs on its own, shorter clock: every week, say.</div></li>
+          </ul>
+          <ul class="ring-colours">
+            <li><i style="background:var(--ok)"></i><b>Green</b> plenty of time</li>
+            <li><i style="background:var(--soon)"></i><b>Amber</b> due within a week</li>
+            <li><i style="background:var(--over)"></i><b>Red</b> overdue, and their face starts to fade</li>
+          </ul>
+          <p class="hint">Try it in the box at the top: drag <b>Skip ahead</b> to watch the rings drain, then tap a face to log a catch-up and fill them up again.</p>
+        </div>
       </div>
     </section>
 
