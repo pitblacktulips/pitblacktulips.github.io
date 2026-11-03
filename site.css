@@ -48,3 +48,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 footer nav { display: flex; gap: 22px; }
 footer a { color: inherit; text-decoration: none; }
 footer a:hover { color: var(--plum); }
+
+/* The features page: a wider column, each feature a name and one line */
+.doc.wide { max-width: 980px; }
+.lede { font-size: 19px; color: var(--soft); max-width: 52ch; }
+.feat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 0; border-top: 1px solid var(--line); }
+@media (max-width: 680px) { .feat { grid-template-columns: minmax(0, 1fr); } }
+.feat > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.feat dt { font-weight: 700; color: var(--plum); }
+.feat dd { margin: 4px 0 0; color: var(--soft); font-size: 16px; line-height: 1.55; }
