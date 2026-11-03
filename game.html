@@ -1042,10 +1042,26 @@ function frame(now) {
   const shake = wobbleT > 0 ? Math.sin(wobbleT * 60) * wobbleT * 6 : 0;
   ctx.save(); ctx.translate(shake, breathe);
   const items = sceneItems(true);
-  for (const it of items) {
-    if (it.char) { const p = charScreen(); drawChar(ctx, p[0], p[1], cam.w, t); continue; }
-    if (it.prop) { drawProp(ctx, it.b, t); continue; }
-    drawBlock(ctx, cam, it.b, 'color', it.a, t);
+  const drawItems = list => {
+    for (const it of list) {
+      if (it.char) { const p = charScreen(); drawChar(ctx, p[0], p[1], cam.w, t); continue; }
+      if (it.prop) { drawProp(ctx, it.b, t); continue; }
+      drawBlock(ctx, cam, it.b, 'color', it.a, t);
+    }
+  };
+  drawItems(items);
+  /* A moving piece (the pillar, the bridge) that the Lamplighter is not standing on
+     never cuts across them: in this view it reads as being behind. Repaint the
+     area around the character with those pieces sorted behind them. */
+  const ck = charKey();
+  const exempt = it => !it.char && it.b.group && GROUPS[it.b.group].type !== 'rise' && it.key > ck && !charOnGroup(it.b.group);
+  if (items.some(exempt)) {
+    const p = charScreen(), s = cam.w;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(p[0] - s, p[1] - s * 1.35, s * 2, s * 1.6); ctx.clip();
+    ctx.save(); ctx.translate(-shake, -breathe); drawBackground(ctx, t); ctx.restore();
+    drawItems(items.map(it => exempt(it) ? Object.assign({}, it, { key: ck - 1e-4 }) : it).sort((a, b) => a.key - b.key));
+    ctx.restore();
   }
   if (DEBUG) drawDebug(ctx);
   // ripples on taps
