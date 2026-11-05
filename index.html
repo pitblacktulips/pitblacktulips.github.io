@@ -28,7 +28,7 @@
   --on-pine: #FFF3EC;
   --on-pine-soft: #E8CDD3;
   --line: rgba(125, 63, 81, .1);
-  --ok: #3E8A5F; --soon: #C99437; --over: #C8553F;
+  --ok: #3E8A5F; --soon: #2C68A0; --over: #D0702F;
   --sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   --hand: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
 }
@@ -231,7 +231,7 @@ footer a:hover { color: var(--pine); }
   <header class="top">
     <div class="wrap nav">
       <a class="brand" href="#top">
-        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="9" fill="#7D3F51"/><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="4.4" fill="none" stroke="#E8AE5E" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="17 99" transform="rotate(-90 15 15)"/></svg>
+        <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ohheyMark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F08A72"/><stop offset="1" stop-color="#C2496A"/></linearGradient></defs><rect width="100" height="100" rx="26" fill="url(#ohheyMark)"/><g transform="rotate(-10 52 50)"><g transform="translate(2 3)" fill="#7D2F45" opacity=".3"><path d="M29 63 L19 84 L42 74 Z"/><circle cx="52" cy="47" r="31"/></g><path d="M29 63 L19 84 L42 74 Z" fill="#FFF7F0"/><circle cx="52" cy="47" r="31" fill="#FFF7F0"/><path d="M37 50 Q52 67 67 46" fill="none" stroke="#D2566C" stroke-width="7.5" stroke-linecap="round"/></g></svg>
         OhHey
       </a>
       <ul><li><a href="#how">How it works</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#questions">Questions</a></li></ul>
@@ -305,8 +305,8 @@ footer a:hover { color: var(--pine); }
           </ul>
           <ul class="ring-colours">
             <li><i style="background:var(--ok)"></i><b>Green</b> plenty of time</li>
-            <li><i style="background:var(--soon)"></i><b>Amber</b> due within a week</li>
-            <li><i style="background:var(--over)"></i><b>Red</b> overdue, and their face starts to fade</li>
+            <li><i style="background:var(--soon)"></i><b>Blue</b> due within a week</li>
+            <li><i style="background:var(--over)"></i><b>Orange</b> drifting, and their face starts to fade</li>
           </ul>
           <p class="hint">Try it in the box at the top: drag <b>Skip ahead</b> to watch the rings drain, then tap a face to log a catch-up and fill them up again.</p>
         </div>
@@ -340,14 +340,14 @@ footer a:hover { color: var(--pine); }
             </div>
             <span class="num">02</span>
             <h3>See who’s due, and who’s free</h3>
-            <p>Got an evening? OhHey suggests who’s nearby, up for it, and overdue.</p>
+            <p>Got an evening? OhHey suggests who’s nearby, up for it, and due a catch-up.</p>
           </div>
           <div class="step">
             <div class="frame center">
-              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. 3 weeks overdue. Last time: new job at the studio. Buttons: Message, Saw them, Next week.">
+              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. Due 3 weeks ago. Last time: new job at the studio. Buttons: Message, Saw them, Next week.">
                 <div class="ic"><svg width="22" height="22" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="3" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="2.6" fill="#E8AE5E"/></svg></div>
                 <b>Oh hey, Sam’s due a catch-up <small>9:00</small></b>
-                <p>3 weeks overdue. Last time: new job at the studio.</p>
+                <p>Due 3 weeks ago. Last time: new job at the studio.</p>
                 <div class="acts"><span>Message</span><span>Saw them</span><span>Next week</span></div>
               </div>
             </div>
@@ -430,7 +430,7 @@ footer a:hover { color: var(--pine); }
       { name: 'Jo', ini: 'JK', meet: 21, touch: 10, seen: 23, touched: 8, tint: '#F8E2BE' },
       { name: 'Rob', ini: 'RH', meet: 60, touch: 30, seen: 4, touched: 4, tint: '#DDE7D3' },
     ];
-    const COLORS = { ok: getComputedStyle(document.documentElement).getPropertyValue('--ok').trim() || '#3E8A5F', soon: '#C99437', over: '#C8553F' };
+    const COLORS = { ok: getComputedStyle(document.documentElement).getPropertyValue('--ok').trim() || '#3E8A5F', soon: '#2C68A0', over: '#D0702F' };
     let skip = 0;
 
     function ring(days, every) {
