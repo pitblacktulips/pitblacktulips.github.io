@@ -1,0 +1,16 @@
+/* The site's two fonts, served from this site rather than Google Fonts (faster, and no request to Google).
+   Both are under the SIL Open Font License: see OFL-Figtree.txt and OFL-Caveat.txt. Latin subset only. */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(figtree-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(caveat-600-latin.woff2) format('woff2');
+}

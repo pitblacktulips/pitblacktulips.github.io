@@ -3,17 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>OhHey · Reminders for friends</title>
-  <meta name="description" content="OhHey keeps track of how long it’s been since you saw your close friends, who’s around when you’re free, and whose birthday is next. Friendly for ADHD brains, and everything stays on your phone." />
+  <title>OhHey: an app to keep in touch with close friends</title>
+  <meta name="description" content="OhHey is a private iPhone and Android app that reminds you to keep in touch with close friends: who you haven’t seen, who’s free, and every birthday." />
+  <link rel="canonical" href="https://pitblacktulips.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="OhHey" />
+  <meta property="og:url" content="https://pitblacktulips.github.io/" />
+  <meta property="og:title" content="OhHey: an app to keep in touch with close friends" />
+  <meta property="og:description" content="Turn “we should catch up” into plans. Who you haven’t seen in a while, who’s around when you’re free, and every birthday. Private, on your phone." />
+  <meta property="og:image" content="https://pitblacktulips.github.io/images/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="OhHey: turn “we should catch up” into plans. The app’s Home screen on a phone." />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#FFF8F4" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1C1418" media="(prefers-color-scheme: dark)" />
-  <meta property="og:title" content="OhHey · Reminders for friends" />
-  <meta property="og:description" content="Turn “we should catch up” into plans. Who you haven’t seen in a while, who’s around when you’re free, and every birthday. Private, on your phone." />
-  <meta property="og:image" content="images/app/home-light.webp" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/app/icon-32.png?v=4" />
   <link rel="icon" type="image/png" sizes="192x192" href="images/app/icon-192.png?v=4" />
   <link rel="apple-touch-icon" href="images/app/icon-180.png?v=4" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" />
+  <link rel="preload" href="fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="fonts/fonts.css" />
   <style>
 /* Layout: the homepage (from prototype 5). A calm structure in warm mid-tones: a blush-white page, deep plum
    for type and buttons, soft apricot panels, raspberry-rose for a few words, honey for fine detail. Rounder type. */
@@ -63,7 +72,7 @@ header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb
 @media (max-width: 780px) { .nav ul { display: none; } }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--pine); color: var(--on-pine); font-weight: 600; font-size: 16px; text-decoration: none; letter-spacing: -0.01em; transition: transform .15s ease; }
 .btn:hover { transform: translateY(-1px); }
-.btn.small { min-height: 40px; padding: 0 18px; font-size: 14.5px; }
+.btn.small { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
 .nav .btn { margin-left: 18px; }
 @media (max-width: 780px) { .nav .btn { margin-left: auto; } }
 .textlink { font-weight: 600; color: var(--pine); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
@@ -228,6 +237,24 @@ footer a { text-decoration: none; }
 footer a:hover { color: var(--pine); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } .demo circle { transition: none !important; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "WebSite", "@id": "https://pitblacktulips.github.io/#website", "name": "OhHey", "url": "https://pitblacktulips.github.io/",
+        "inLanguage": "en-GB" },
+      { "@type": "MobileApplication", "name": "OhHey", "url": "https://pitblacktulips.github.io/",
+        "description": "A private iPhone and Android app that reminds you to keep in touch with close friends: who you haven’t seen in a while, who’s free when you are, and every birthday. No account, and everything stays on your phone.",
+        "operatingSystem": "iOS, Android", "applicationCategory": "LifestyleApplication", "inLanguage": "en-GB",
+        "screenshot": "https://pitblacktulips.github.io/images/app/home-light.webp",
+        "offers": [
+          { "@type": "Offer", "name": "Free, up to 6 friends", "price": "0", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "Premium, yearly", "price": "9.99", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "Premium, buy once", "price": "24.99", "priceCurrency": "GBP" }
+        ] }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="top">
@@ -246,7 +273,7 @@ footer a:hover { color: var(--pine); }
       <div>
         <span class="label">Reminders for friends</span>
         <h1>Turn “we should catch up” <span class="soft">into plans.</span></h1>
-        <p class="lead">OhHey helps you stay close to the friends and family you care about. See at a glance who you haven’t seen in a while, get a gentle nudge before anyone drifts, and when you’ve got a free evening, it suggests who to message. It even remembers the little things, like the new job or the house move, so you know just what to ask.</p>
+        <p class="lead">OhHey is a private iPhone and Android app that helps you keep in touch with the friends and family you care about. See at a glance who you haven’t seen in a while, get a gentle nudge before anyone drifts, and when you’ve got a free evening, it suggests who to message. It even remembers the little things, like the new job or the house move, so you know just what to ask.</p>
         <div class="cta">
           <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
           <small>Coming to iPhone and Android</small>
@@ -259,7 +286,7 @@ footer a:hover { color: var(--pine); }
         <div class="device">
           <picture>
             <source srcset="images/app/home-dark.webp" media="(prefers-color-scheme: dark)" />
-            <img src="images/app/home-light.webp" alt="OhHey’s Home screen: who could make it this weekend, and your circle by who’s up to date and who’s drifting." width="390" height="844" />
+            <img src="images/app/home-light.webp" alt="OhHey’s Home screen: who could make it this weekend, and your circle by who’s up to date and who’s drifting." width="390" height="844" fetchpriority="high" />
           </picture>
         </div>
         <div class="demo" aria-label="Try it: the rings round each friend">
@@ -346,11 +373,11 @@ footer a:hover { color: var(--pine); }
           </div>
           <div class="step">
             <div class="frame center">
-              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. Due 3 weeks ago. Last time: new job at the studio. Buttons: Message, Saw them, Next week.">
+              <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. Due 3 weeks ago. Last time: new job at the studio. Buttons: Message, Met up, Snooze a week.">
                 <div class="ic"><svg width="22" height="22" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="3" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="2.6" fill="#E8AE5E"/></svg></div>
                 <b>Oh hey, Sam’s due a catch-up <small>9:00</small></b>
                 <p>Due 3 weeks ago. Last time: new job at the studio.</p>
-                <div class="acts"><span>Message</span><span>Saw them</span><span>Next week</span></div>
+                <div class="acts"><span>Message</span><span>Met up</span><span>Snooze a week</span></div>
               </div>
             </div>
             <span class="num">03</span>
@@ -376,7 +403,7 @@ footer a:hover { color: var(--pine); }
         <div><span class="label">Private by design</span><h2>There’s no OhHey server. Your friends are <span style="color:#F6B9A0">never sent to us.</span></h2></div>
         <dl>
           <div><dt>No account, no sign-up</dt><dd>Open the app and start.</dd></div>
-          <div><dt>No ads, no tracking</dt><dd>There’s nothing to sell, so nothing is collected.</dd></div>
+          <div><dt>No ads, no tracking</dt><dd>Nothing about your friends ever reaches us: only an optional crash report, and a receipt if you buy Premium.</dd></div>
           <div><dt>Rough areas, never live location</dt><dd>You choose a neighbourhood for each friend.</dd></div>
           <div><dt>Backups to your own cloud</dt><dd>iCloud or Google Drive, in a folder only OhHey can open.</dd></div>
         </dl>
@@ -413,7 +440,7 @@ footer a:hover { color: var(--pine); }
     <section class="closing">
       <div class="wrap">
         <h2>Be first to try it.</h2>
-        <p>OhHey is coming to iPhone and Android. Drop us a line and we’ll let you know.</p>
+        <p>OhHey is coming to iPhone and Android. Drop us a line at <span class="mail">appohhey@gmail.com</span> and we’ll let you know.</p>
         <a class="btn" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
       </div>
     </section>
@@ -447,7 +474,9 @@ footer a:hover { color: var(--pine); }
     }
     const say = (s, label) => (s.left < 0 ? `${label} ${-s.left}d over` : s.left === 0 ? `${label} today` : `${label} in ${s.left}d`);
     function render() {
-      document.getElementById('skipOut').textContent = skip === 0 ? 'Today' : skip < 14 ? `+${skip} days` : `+${Math.round(skip / 7)} weeks`;
+      const when = skip === 0 ? 'Today' : skip < 14 ? `+${skip} days` : `+${Math.round(skip / 7)} weeks`;
+      document.getElementById('skipOut').textContent = when;
+      document.getElementById('skip').setAttribute('aria-valuetext', skip === 0 ? 'Today' : `${when} from today`);
       document.getElementById('faces').innerHTML = FRIENDS.map((f, i) => {
         const meet = ring(f.seen + skip, f.meet);
         const touch = ring(f.touched + skip, f.touch);
