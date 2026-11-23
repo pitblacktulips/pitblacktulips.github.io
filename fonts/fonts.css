@@ -1,5 +1,8 @@
 /* The site's two fonts, served from this site rather than Google Fonts (faster, and no request to Google).
-   Both are under the SIL Open Font License: see OFL-Figtree.txt and OFL-Caveat.txt. Latin subset only. */
+   Both are under the SIL Open Font License: see OFL-Figtree.txt and OFL-Caveat.txt. Figtree: Latin subset.
+   Caveat (handwriting) holds only the letters of the homepage's "oh hey!" note (o h e y ! and capitals O H E Y),
+   so it's 5 KB instead of 50. If that note's words change, other letters show in a fallback handwriting font:
+   re-cut the font from the full Caveat 600 with pyftsubset --text="<new words>" --layout-features='*' --flavor=woff2. */
 @font-face {
   font-family: 'Figtree';
   font-style: normal;
@@ -12,5 +15,5 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(caveat-600-latin.woff2) format('woff2');
+  src: url(caveat-600-ohhey.woff2) format('woff2');
 }
