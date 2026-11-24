@@ -173,12 +173,13 @@ section { padding-block: 112px; }
 .num { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--gold); font-variant-numeric: tabular-nums; }
 .step h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; }
 .step p { color: var(--moss); font-size: 16px; }
-.ping { width: 100%; max-width: 330px; background: color-mix(in srgb, var(--paper) 94%, transparent); border-radius: 20px; padding: 14px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 3px 12px; box-shadow: 0 24px 40px -26px rgba(125, 63, 81, .55), 0 0 0 1px var(--line); }
-.ping .ic { grid-row: span 2; width: 38px; height: 38px; border-radius: 10px; background: #7D3F51; display: grid; place-items: center; }
+.ping { width: 100%; max-width: 340px; background: color-mix(in srgb, var(--paper) 94%, transparent); border-radius: 20px; padding: 14px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 44px; gap: 3px 12px; box-shadow: 0 24px 40px -26px rgba(125, 63, 81, .55), 0 0 0 1px var(--line); }
+.ping .ic { grid-row: span 2; width: 38px; height: 38px; border-radius: 9px; }
+.ping .pic { grid-column: 3; grid-row: 1 / span 2; width: 44px; height: 44px; border-radius: 8px; align-self: center; }
 .ping b { font-size: 14px; color: var(--pine-ink); display: flex; justify-content: space-between; gap: 8px; }
 .ping b small { font-weight: 500; color: var(--moss); font-size: 12px; }
 .ping p { color: var(--moss); font-size: 13.5px; line-height: 1.4; }
-.ping .acts { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ping .acts { grid-column: 2 / span 2; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .ping .acts span { font-size: 12px; font-weight: 600; background: var(--linen); color: var(--pine-ink); border-radius: 99px; padding: 5px 11px; white-space: nowrap; }
 
 .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 56px; border-top: 1px solid var(--line); }
@@ -375,9 +376,10 @@ footer a:hover { color: var(--pine); }
           <div class="step">
             <div class="frame center">
               <div class="ping" role="img" aria-label="A notification: Oh hey, Sam’s due a catch-up. Due 3 weeks ago. Last time: new job at the studio. Buttons: Message, Met up, Snooze a week.">
-                <div class="ic"><svg width="22" height="22" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="8.6" fill="none" stroke="#FCE6D8" stroke-width="3" stroke-linecap="round" stroke-dasharray="42 99" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="2.6" fill="#E8AE5E"/></svg></div>
+                <img class="ic" src="images/app/icon-180.png" alt="" width="38" height="38" />
                 <b>Oh hey, Sam’s due a catch-up <small>9:00</small></b>
                 <p>Due 3 weeks ago. Last time: new job at the studio.</p>
+                <svg class="pic" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" fill="#F3CFBA"/><path d="M5 44c1-9 8-14 17-14s16 5 17 14z" fill="#A8435A"/><rect x="18" y="24" width="8" height="8" rx="3" fill="#C98E6B"/><ellipse cx="22" cy="18" rx="8" ry="9" fill="#D9A07E"/><path d="M13 18c-1-8 5-12 10-12 6 0 10 4 9 11-2-4-5-6-9-6-4 0-7 3-10 7z" fill="#3A2730"/></svg>
                 <div class="acts"><span>Message</span><span>Met up</span><span>Snooze a week</span></div>
               </div>
             </div>
