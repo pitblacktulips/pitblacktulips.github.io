@@ -59,13 +59,15 @@ img { max-width: 100%; display: block; }
 h1, h2, h3 { margin: 0; color: var(--pine); text-wrap: balance; font-weight: 700; letter-spacing: -0.025em; }
 p { margin: 0; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
-.label { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--moss); display: inline-flex; align-items: center; gap: 10px; }
-.label::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--gold); }
 
 /* Nav */
 header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--linen) 88%, transparent); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; }
 .nav { display: flex; align-items: center; gap: 12px; min-height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.04em; color: var(--pine); text-decoration: none; }
+.brand .name { display: flex; align-items: baseline; gap: 0 12px; flex-wrap: wrap; }
+.brand .tagline { white-space: nowrap; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; color: var(--moss); }
+@media (max-width: 600px) { .brand .name { flex-direction: column; gap: 0; line-height: 1.1; } .brand .tagline { font-size: 12.5px; } }
+@media (max-width: 350px) { .brand { gap: 8px; } .brand .tagline { font-size: 11.5px; } .nav .btn.small { padding: 0 12px; font-size: 13px; white-space: nowrap; } }
 .nav ul { list-style: none; display: flex; gap: 30px; margin: 0 0 0 auto; padding: 0; font-size: 15px; color: var(--moss); }
 .nav ul a { text-decoration: none; }
 .nav ul a:hover { color: var(--pine); }
@@ -80,7 +82,7 @@ header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb
 /* Hero */
 .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-block: 72px 96px; }
 @media (max-width: 920px) { .hero { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 40px 72px; } }
-.hero h1 { font-size: clamp(42px, 6.2vw, 74px); line-height: 1; letter-spacing: -0.03em; margin-top: 22px; font-weight: 700; }
+.hero h1 { font-size: clamp(42px, 6.2vw, 74px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
 .hero h1 .soft { color: var(--rose); }
 .hero .lead { margin-top: 24px; font-size: 20px; line-height: 1.55; color: var(--moss); max-width: 33ch; }
 .hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 32px; }
@@ -133,7 +135,7 @@ header.top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb
 .ring-art figcaption { text-align: center; display: flex; flex-direction: column; gap: 2px; }
 .ring-art figcaption b { color: var(--pine); font-size: 18px; }
 .ring-art figcaption span { color: var(--moss); font-size: 14.5px; }
-.rings-copy h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; }
+.rings-copy h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; }
 .rings-copy .lead { margin-top: 16px; color: var(--moss); font-size: 18px; max-width: 48ch; }
 .ring-list { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-direction: column; gap: 16px; }
 .ring-list li { display: flex; gap: 14px; align-items: flex-start; }
@@ -154,14 +156,13 @@ section[id] { scroll-margin-top: 72px; }
 section { padding-block: 112px; }
 @media (max-width: 780px) { section { padding-block: 72px; } }
 .statement { text-align: center; }
-.statement h2 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.03em; margin: 20px auto 0; max-width: 16ch; font-weight: 700; }
+.statement h2 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.03em; margin: 0 auto; max-width: 16ch; font-weight: 700; }
 .statement p { margin: 24px auto 0; max-width: 52ch; font-size: 19px; color: var(--moss); }
-.rule { width: 10px; height: 10px; border-radius: 99px; background: var(--gold); margin: 0 auto; box-shadow: -18px 0 0 var(--sage-deep), 18px 0 0 var(--sage-deep); }
 
 .how { border-top: 1px solid var(--line); }
 .sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: end; }
 @media (max-width: 780px) { .sec-head { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
-.sec-head h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.sec-head h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; font-weight: 700; }
 .sec-head p { color: var(--moss); font-size: 17px; max-width: 44ch; }
 .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
 @media (max-width: 920px) { .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
@@ -170,7 +171,6 @@ section { padding-block: 112px; }
 .frame picture { display: block; width: 72%; max-width: 270px; }
 .frame img { width: 100%; height: auto; border-radius: 26px 26px 0 0; aspect-ratio: 390 / 560; object-fit: cover; object-position: top; box-shadow: 0 24px 40px -24px rgba(125, 63, 81, .5); }
 .frame.center { align-items: center; padding: 24px; }
-.num { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--gold); font-variant-numeric: tabular-nums; }
 .step h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; }
 .step p { color: var(--moss); font-size: 16px; }
 .ping { width: 100%; max-width: 340px; background: color-mix(in srgb, var(--paper) 94%, transparent); border-radius: 20px; padding: 14px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 44px; gap: 3px 12px; box-shadow: 0 24px 40px -26px rgba(125, 63, 81, .55), 0 0 0 1px var(--line); }
@@ -186,21 +186,20 @@ section { padding-block: 112px; }
 @media (max-width: 920px) { .features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .features { grid-template-columns: minmax(0, 1fr); } }
 .feature { padding: 28px 28px 28px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
-.feature svg { width: 26px; height: 26px; }
-.feature h3 { font-size: 18px; letter-spacing: -0.015em; margin-top: 6px; }
+.feature h3 { font-size: 18px; letter-spacing: -0.015em; }
 .feature p { font-size: 15.5px; color: var(--moss); }
 
 .privacy { background: var(--pine); color: var(--on-pine); }
 .privacy .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center; }
 @media (max-width: 920px) { .privacy .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
-.privacy .label { color: var(--on-pine-soft); }
-.privacy h2 { color: var(--on-pine); font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -0.03em; margin-top: 18px; font-weight: 700; }
+.privacy h2 { color: var(--on-pine); font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; }
 .privacy dl { margin: 0; display: grid; gap: 0; }
 .privacy dl div { padding: 16px 0; border-top: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
 .privacy dl div:last-child { border-bottom: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent); }
+.privacy .hl { color: #F6B9A0; }
 .privacy dt { font-weight: 600; }
 .privacy dd { margin: 0; color: var(--on-pine-soft); font-size: 15.5px; }
-@media (prefers-color-scheme: dark) { .privacy dd { color: #6D4C59; } }
+@media (prefers-color-scheme: dark) { .privacy dd { color: #6D4C59; } .privacy .hl { color: #963A52; } }
 
 .pricing .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; max-width: 760px; }
 @media (max-width: 640px) { .pricing .plans { grid-template-columns: minmax(0, 1fr); } }
@@ -212,12 +211,12 @@ section { padding-block: 112px; }
 .plan .price small { font-size: 16px; font-weight: 500; color: var(--moss); letter-spacing: 0; }
 .plan ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; }
 .plan li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; color: var(--pine-ink); }
-.plan li::before { content: "✓"; color: var(--gold); font-weight: 700; }
+.plan li::before { content: ""; width: 16px; height: 16px; margin-top: .3em; background: var(--gold); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
 .fine { margin-top: 18px; font-size: 13.5px; color: var(--moss); max-width: 70ch; }
 
 .faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; }
 @media (max-width: 860px) { .faq-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
-.faq-grid h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin-top: 16px; font-weight: 700; }
+.faq-grid h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; font-weight: 700; }
 .faq-grid > div > p { margin-top: 16px; color: var(--moss); }
 details { border-bottom: 1px solid var(--line); }
 details:first-of-type { border-top: 1px solid var(--line); }
@@ -262,7 +261,7 @@ footer a:hover { color: var(--pine); }
     <div class="wrap nav">
       <a class="brand" href="#top">
         <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ohheyMark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F08A72"/><stop offset="1" stop-color="#C2496A"/></linearGradient></defs><rect width="100" height="100" rx="26" fill="url(#ohheyMark)"/><g transform="rotate(-10 52 50)"><g transform="translate(2 3)" fill="#7D2F45" opacity=".3"><path d="M29 63 L19 84 L42 74 Z"/><circle cx="52" cy="47" r="31"/></g><path d="M29 63 L19 84 L42 74 Z" fill="#FFF7F0"/><circle cx="52" cy="47" r="31" fill="#FFF7F0"/><path d="M37 50 Q52 67 67 46" fill="none" stroke="#D2566C" stroke-width="7.5" stroke-linecap="round"/></g></svg>
-        OhHey
+        <span class="name">OhHey <span class="tagline">Reminders for friends</span></span>
       </a>
       <ul><li><a href="#how">How it works</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#questions">Questions</a></li></ul>
       <a class="btn small" href="mailto:appohhey@gmail.com?subject=Early%20access">Get early access</a>
@@ -272,7 +271,6 @@ footer a:hover { color: var(--pine); }
   <main id="top">
     <div class="wrap hero">
       <div>
-        <span class="label">Reminders for friends</span>
         <h1>Turn “we should catch up” <span class="soft">into plans.</span></h1>
         <p class="lead">OhHey is a private iPhone and Android app that helps you keep in touch with the friends and family you care about. See at a glance who you haven’t seen in a while, get a gentle nudge before anyone drifts, and when you’ve got a free evening, it suggests who to message. It even remembers the little things, like the new job or the house move, so you know just what to ask.</p>
         <div class="cta">
@@ -307,7 +305,6 @@ footer a:hover { color: var(--pine); }
 
     <section class="statement">
       <div class="wrap">
-        <div class="rule" aria-hidden="true"></div>
         <h2>It’s not that you <span style="color:var(--rose)">don’t care.</span></h2>
         <p>Weeks turn into months, and then it feels awkward to get in touch. It happens to anyone with a busy life, and especially to <a href="adhd.html">people with ADHD</a>. OhHey does the remembering, so you can do the caring.</p>
       </div>
@@ -327,7 +324,6 @@ footer a:hover { color: var(--pine); }
           <figcaption><b>Sam</b><span>Meet up in 21 days · Message in 2 days</span></figcaption>
         </figure>
         <div class="rings-copy">
-          <span class="label">Reading the rings</span>
           <h2>Two rings round every friend.</h2>
           <p class="lead">Each ring is a countdown. It starts full when you catch up, and empties as the days pass, until it’s time to get in touch again.</p>
           <ul class="ring-list">
@@ -347,7 +343,7 @@ footer a:hover { color: var(--pine); }
     <section class="how" id="how">
       <div class="wrap">
         <div class="sec-head">
-          <div><span class="label">How it works</span><h2>Set it up once, and it keeps an eye on who’s due.</h2></div>
+          <div><h2>Set it up once, and it keeps an eye on who’s due.</h2></div>
           <p>Two rings round each friend: the outer one for meeting up, the inner one for keeping in touch. They drain as time passes, and fill back up when you get in touch.</p>
         </div>
         <div class="steps">
@@ -358,7 +354,6 @@ footer a:hover { color: var(--pine); }
                 <img src="images/app/profile-light.webp" alt="A friend’s profile in OhHey, with two rings round their initials and buttons to message, plan or log a catch-up." width="402" height="874" loading="lazy" />
               </picture>
             </div>
-            <span class="num">01</span>
             <h3>Add the people you want to see more</h3>
             <p>Say how often you’d like to meet up, and how often just to be in touch.</p>
           </div>
@@ -369,7 +364,6 @@ footer a:hover { color: var(--pine); }
                 <img src="images/app/free-light.webp" alt="Who’s around: friends nearby who are up for it at short notice and due a catch-up." width="402" height="874" loading="lazy" />
               </picture>
             </div>
-            <span class="num">02</span>
             <h3>See who’s due, and who’s free</h3>
             <p>Got an evening? OhHey suggests who’s nearby, up for it, and due a catch-up.</p>
           </div>
@@ -383,19 +377,18 @@ footer a:hover { color: var(--pine); }
                 <div class="acts"><span>Message</span><span>Met up</span><span>Snooze a week</span></div>
               </div>
             </div>
-            <span class="num">03</span>
             <h3>A gentle nudge, at the right moment</h3>
             <p>One friend at a time, with a message ready to send, and no streaks to keep up.</p>
           </div>
         </div>
 
         <div class="features">
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--gold)" stroke-width="1.6"/><path d="M13 7v6l4 2" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Two rhythms</h3><p>Meet up monthly, message weekly: each friend their own pace.</p></div>
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M5 18c0-5 4-9 8-9s8 4 8 9" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linecap="round"/><circle cx="13" cy="6" r="2.4" fill="var(--gold)"/></svg><h3>Your messengers</h3><p>One tap to WhatsApp, iMessage, Signal, Telegram or text, with an opener ready.</p></div>
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="6" width="18" height="15" rx="3" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M4 11h18" stroke="var(--gold)" stroke-width="1.6"/></svg><h3>Birthdays and plans</h3><p>Every birthday for the year, plans in your calendar, and “how did it go?” after.</p></div>
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--pine)" stroke-width="1.6"/><path d="M3 13h20M13 3c3 3 3 17 0 20M13 3c-3 3-3 17 0 20" fill="none" stroke="var(--gold)" stroke-width="1.3"/></svg><h3>Friends abroad</h3><p>Their time now, and the best times to call, from both your weeks.</p></div>
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M7 4h9l4 4v14H7z" fill="none" stroke="var(--pine)" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 13h7M10 17h5" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/></svg><h3>Notes</h3><p>The new job, the house move: read it before you see them.</p></div>
-          <div class="feature"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/><rect x="14" y="4" width="8" height="8" rx="2.4" fill="none" stroke="var(--gold)" stroke-width="1.6"/><rect x="4" y="14" width="18" height="8" rx="2.4" fill="none" stroke="var(--pine)" stroke-width="1.6"/></svg><h3>Widgets</h3><p>Faces and rings on your home screen, so nobody vanishes from view.</p></div>
+          <div class="feature"><h3>Two rhythms</h3><p>Meet up monthly, message weekly: each friend their own pace.</p></div>
+          <div class="feature"><h3>Your messengers</h3><p>One tap to WhatsApp, iMessage, Signal, Telegram or text, with an opener ready.</p></div>
+          <div class="feature"><h3>Birthdays and plans</h3><p>Every birthday for the year, plans in your calendar, and “how did it go?” after.</p></div>
+          <div class="feature"><h3>Friends abroad</h3><p>Their time now, and the best times to call, from both your weeks.</p></div>
+          <div class="feature"><h3>Notes</h3><p>The new job, the house move: read it before you see them.</p></div>
+          <div class="feature"><h3>Widgets</h3><p>Faces and rings on your home screen, so nobody vanishes from view.</p></div>
         </div>
         <p class="all-features"><a href="features.html">See everything OhHey does →</a></p>
       </div>
@@ -403,7 +396,7 @@ footer a:hover { color: var(--pine); }
 
     <section class="privacy" id="privacy">
       <div class="wrap">
-        <div><span class="label">Private by design</span><h2>There’s no OhHey server. Your friends are <span style="color:#F6B9A0">never sent to us.</span></h2></div>
+        <div><h2>There’s no OhHey server. Your friends are <span class="hl">never sent to us.</span></h2></div>
         <dl>
           <div><dt>No account, no sign-up</dt><dd>Open the app and start.</dd></div>
           <div><dt>No ads, no tracking</dt><dd>Nothing about your friends ever reaches us: only an optional crash report, and a receipt if you buy Premium.</dd></div>
@@ -416,7 +409,7 @@ footer a:hover { color: var(--pine); }
     <section class="pricing" id="pricing">
       <div class="wrap">
         <div class="sec-head">
-          <div><span class="label">Pricing</span><h2>Free for your closest six.</h2></div>
+          <div><h2>Free for your closest six.</h2></div>
           <p>Everything works in the free version. Premium makes room for everyone else.</p>
         </div>
         <div class="plans">
@@ -429,7 +422,7 @@ footer a:hover { color: var(--pine); }
 
     <section id="questions" style="padding-top:0">
       <div class="wrap faq-grid">
-        <div><span class="label">Questions</span><h2>Good to know.</h2><p>Anything else? Email <span class="mail">appohhey@gmail.com</span>.</p></div>
+        <div><h2>Good to know.</h2><p>Anything else? Email <span class="mail">appohhey@gmail.com</span>.</p></div>
         <div>
           <details open><summary>Do my friends need the app?</summary><p>No. Only you use OhHey. It opens WhatsApp, iMessage, Signal, Telegram or your texts to message them.</p></details>
           <details><summary>Does it read my messages?</summary><p>No. On Android it can notice who messaged you, so it counts as being in touch. It never reads what they said.</p></details>
